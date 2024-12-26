@@ -50,7 +50,7 @@
 <html lang="en" >
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-        <title>Metronic - The World's #1 Selling Tailwind CSS & Bootstrap Admin Template by KeenThemes</title>
+        <title>ByteBrain - File Manager System</title>
         <meta charset="utf-8"/>
         <meta name="description" content="
             The most advanced Tailwind CSS & Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo,
@@ -194,15 +194,15 @@
         <!--end::Title-->
 
         <!--begin::Subtitle-->
-        <div class="text-gray-500 fw-semibold fs-6">
+        {{-- <div class="text-gray-500 fw-semibold fs-6">
             Your Social Campaigns
-        </div>
+        </div> --}}
         <!--end::Subtitle--->
     </div>
     <!--begin::Heading-->
 
     <!--begin::Login options-->
-    <div class="row g-3 mb-9">
+    {{-- <div class="row g-3 mb-9">
         <!--begin::Col-->
         <div class="col-md-12">
             <!--begin::Google link--->
@@ -215,12 +215,12 @@
         <!--end::Col-->
 
         
-    </div>
+    </div> --}}
     <!--end::Login options-->
 
     <!--begin::Separator-->
     <div class="separator separator-content my-14">
-        <span class="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
+        <span class="w-125px text-gray-500 fw-semibold fs-7">With email</span>
     </div>
     <!--end::Separator-->
 
@@ -244,7 +244,7 @@
         <div></div>
 
         <!--begin::Link-->
-        <a href="reset-password.html" class="link-primary">
+        <a href="{{route('register')}}" class="link-primary">
             Forgot Password ?
         </a>
         <!--end::Link-->
@@ -272,7 +272,7 @@
     <div class="text-gray-500 text-center fw-semibold fs-6">
         Not a Member yet?
 
-        <a href="sign-up.html" class="link-primary">
+        <a href="{{route('register')}}" class="link-primary">
             Sign up
         </a>
     </div>
