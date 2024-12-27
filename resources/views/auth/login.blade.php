@@ -278,8 +278,7 @@
                                             <span data-kt-element="lang-name">English</span>
                                         </a>
                                     </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
+                                  
                                     <div class="menu-item px-3">
                                         <a href="#" class="menu-link d-flex px-5" data-kt-lang="Spanish">
                                             <span class="symbol symbol-20px me-4">
@@ -289,8 +288,7 @@
                                             <span data-kt-element="lang-name">Spanish</span>
                                         </a>
                                     </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
+                                  
                                     <div class="menu-item px-3">
                                         <a href="#" class="menu-link d-flex px-5" data-kt-lang="German">
                                             <span class="symbol symbol-20px me-4">
@@ -300,8 +298,7 @@
                                             <span data-kt-element="lang-name">German</span>
                                         </a>
                                     </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
+                                    
                                     <div class="menu-item px-3">
                                         <a href="#" class="menu-link d-flex px-5" data-kt-lang="Japanese">
                                             <span class="symbol symbol-20px me-4">
@@ -311,8 +308,7 @@
                                             <span data-kt-element="lang-name">Japanese</span>
                                         </a>
                                     </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
+                                    
                                     <div class="menu-item px-3">
                                         <a href="#" class="menu-link d-flex px-5" data-kt-lang="French">
                                             <span class="symbol symbol-20px me-4">
@@ -338,7 +334,7 @@
         </div>
         <!--end::Authentication - Sign-in-->
     </div>
-    
+
     <script>
         var hostUrl = "../../../assets/index.html";
     </script>
