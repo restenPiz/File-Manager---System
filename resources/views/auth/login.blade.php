@@ -48,7 +48,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
     <title>ByteBrain - File Manager System</title>
@@ -74,19 +74,10 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Metronic by Keenthemes" />
     <link rel="canonical" href="sign-in.html" />
-    {{-- <link rel="shortcut icon" href="../../../assets/media/logos/favicon.ico"/> --}}
-
-    <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> <!--end::Fonts-->
-
-
-
-    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="../../../assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="../../../assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
-
-    <!-- Google tag (gtag.js) -->
+    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-52YZ3XGZJ6"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -99,15 +90,11 @@
         gtag('config', 'G-52YZ3XGZJ6');
     </script>
     <script>
-        // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking)
         if (window.top != window.self) {
             window.top.location.replace(window.self.location.href);
         }
     </script>
 </head>
-<!--end::Head-->
-
-<!--begin::Body-->
 
 <body id="kt_body" class="app-blank bgi-size-cover bgi-attachment-fixed bgi-position-center">
     <!--begin::Theme mode setup on page load-->
@@ -133,9 +120,7 @@
             document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
     </script>
-    <!--end::Theme mode setup on page load-->
-
-    <!--begin::Root-->
+   
     <div class="d-flex flex-column flex-root" id="kt_app_root">
         <!--begin::Page bg image-->
         <style>
@@ -147,9 +132,7 @@
                 background-image: url('../../../assets/media/auth/bg10-dark.jpg');
             }
         </style>
-        <!--end::Page bg image-->
-
-        <!--begin::Authentication - Sign-in -->
+        
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             <!--begin::Aside-->
             <div class="d-flex flex-lg-row-fluid">
@@ -160,15 +143,11 @@
                         src="../../../assets/media/auth/agency.png" alt="" />
                     <img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20"
                         src="../../../assets/media/auth/agency-dark.png" alt="" />
-                    <!--end::Image-->
-
-                    <!--begin::Title-->
+                    
                     <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">
                         Fast, Efficient and Productive
                     </h1>
-                    <!--end::Title-->
-
-                    <!--begin::Text-->
+                    
                     <div class="text-gray-600 fs-base text-center fw-semibold">
                         In this kind of post, <a href="#" class="opacity-75-hover text-primary me-1">the
                             blogger</a>
@@ -208,9 +187,7 @@
                                 <div class="separator separator-content my-14">
                                     <span class="w-125px text-gray-500 fw-semibold fs-7">With email</span>
                                 </div>
-                                <!--end::Separator-->
-
-                                <!--begin::Input group--->
+                                
                                 <div class="fv-row mb-8">
                                     <!--begin::Email-->
                                     <input type="text" placeholder="Email" name="email" autocomplete="off"
