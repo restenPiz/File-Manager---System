@@ -11,10 +11,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(LaratrustSeeder::class);
 
-        $user = User::create([
+        $user = \App\Models\User::create([
             'name' => 'Administrador',
             'email' => 'super@gmail.com',
-            'password' => Hash::make('admin@123'),
+            'password' => \Illuminate\Support\Facades\Hash::make('admin@123'),
         ]);
 
         $user->addRole('super');
