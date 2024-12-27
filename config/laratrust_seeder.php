@@ -6,7 +6,7 @@ return [
     'truncate_tables' => true,
 
     'roles_structure' => [
-        'superadministrator' => [
+        'super' => [
             'users' => 'c,r,u,d,a,s,p',
             'files' => 'c,r,u,d,a,s,p',
             'folders' => 'c,r,u,d,a,s,p',
