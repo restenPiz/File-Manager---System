@@ -9,14 +9,14 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        $this->call(LaratrustSeeder::class);
+
         $user = User::create([
             'name' => 'Administrador',
             'email' => 'super@gmail.com',
             'password' => Hash::make('admin@123'),
         ]);
 
-        $user->addRole('admin');
-
-        $this->call(LaratrustSeeder::class);
+        $user->addRole('super');
     }
 }
