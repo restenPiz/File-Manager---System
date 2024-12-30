@@ -175,7 +175,7 @@
                             <!--begin::Form-->
                             <form method="POST" action="{{ route('login') }}" class="form w-100"
                                 novalidate="novalidate" id="kt_sign_in_form"
-                                data-kt-redirect-url="/metronic8/demo1/index.html" action="#">
+                                data-kt-redirect-url="/metronic8/demo1/index.html">
                                 <!--begin::Heading-->
                                 @csrf
                                 <div class="text-center mb-11">
@@ -204,7 +204,7 @@
                                 </div>
 
                                 <div class="d-grid mb-10">
-                                    <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
+                                    <button type="submit" name="submit" class="btn btn-primary">
 
                                         <!--begin::Indicator label-->
                                         <span class="indicator-label">
@@ -216,7 +216,7 @@
                                             Please wait... <span
                                                 class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                         </span>
-                                        <!--end::Indicator progress--> </button>
+                                    </button>
                                 </div>
                             </form>
                             <!--end::Form-->
