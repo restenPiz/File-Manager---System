@@ -44,7 +44,8 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"
-                        isFocused={true}
+                        isFocused={errors?.email ? true : false}
+                        color={errors?.email ? 'failure' : ''}
                         onChange={(e) => setData('email', e.target.value)}
                     />
 
@@ -88,7 +89,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                         </Link>
                     )}
 
-                    <Button gradientMonochrome="success" disabled={processing}>
+                    <Button type="submit" gradientMonochrome="success" disabled={processing}>
                         Log in
                     </Button>
                 </div>
