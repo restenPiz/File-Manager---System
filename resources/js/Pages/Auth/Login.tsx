@@ -88,7 +88,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                         </Link>
                     )}
 
-                    <Button color='blue' disabled={processing}>
+                    <Button gradientMonochrome="success" disabled={processing}>
                         Log in
                     </Button>
                 </div>
