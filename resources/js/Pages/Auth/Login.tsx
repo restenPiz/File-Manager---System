@@ -3,10 +3,8 @@ import Checkbox from '@/Components/Checkbox';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Button } from 'flowbite-react';
+import { Button, TextInput } from 'flowbite-react';
 
 export default function Login({ status, canResetPassword }: { status?: string, canResetPassword: boolean }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -44,7 +42,6 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"
-                        isFocused={errors?.email ? true : false}
                         color={errors?.email ? 'failure' : ''}
                         onChange={(e) => setData('email', e.target.value)}
                     />
@@ -61,6 +58,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                         name="password"
                         value={data.password}
                         className="mt-1 block w-full"
+                        color={errors?.password ? 'failure' : ''}
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
                     />
