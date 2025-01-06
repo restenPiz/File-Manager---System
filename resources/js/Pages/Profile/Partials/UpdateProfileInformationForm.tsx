@@ -32,36 +32,38 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                <div className="flex gap-4">
+                    <div className="flex-1">
+                        <InputLabel htmlFor="name" value="Name" />
 
-                    <TextInput
-                        id="name"
-                        className="mt-1 block w-full"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="name"
-                    />
+                        <TextInput
+                            id="name"
+                            className="mt-1 block w-full"
+                            value={data.name}
+                            onChange={(e) => setData('name', e.target.value)}
+                            required
+                            isFocused
+                            autoComplete="name"
+                        />
 
-                    <InputError className="mt-2" message={errors.name} />
-                </div>
+                        <InputError className="mt-2" message={errors.name} />
+                    </div>
 
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <div className="flex-1">
+                        <InputLabel htmlFor="email" value="Email" />
 
-                    <TextInput
-                        id="email"
-                        type="email"
-                        className="mt-1 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                        autoComplete="username"
-                    />
+                        <TextInput
+                            id="email"
+                            type="email"
+                            className="mt-1 block w-full"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
+                            required
+                            autoComplete="username"
+                        />
 
-                    <InputError className="mt-2" message={errors.email} />
+                        <InputError className="mt-2" message={errors.email} />
+                    </div>
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (
