@@ -2,9 +2,15 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Head, Link } from "@inertiajs/react";
 import { Card } from "flowbite-react";
-import { Button } from "flowbite-react";
+import { useState } from "react";
+import { Modal, Button, Dropdown } from "flowbite-react";
 
 export default function Folder({ auth }: PageProps) {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const toggleModal = () => setIsModalOpen(!isModalOpen);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -17,19 +23,51 @@ export default function Folder({ auth }: PageProps) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    {/* Linha com o botão e o card */}
+                    {/* Header com o título e botão */}
                     <div className="flex justify-between items-center mb-8">
                         <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
                             File Manager
                         </h2>
-                        <Button className="bg-blue-950">Add a new folder</Button>
+                        <Button className="bg-blue-950" onClick={toggleModal}>
+                            Add a new folder
+                        </Button>
                     </div>
 
                     {/* Container para os cards */}
                     <div className="flex space-x-8">
                         {/* Card */}
                         <Card className="max-w-sm flex-1 relative">
-                            {/* Ícone de Folder no centro superior */}
+                            {/* Dropdown de ações no canto superior direito */}
+                            <div className="flex justify-end px-4 pt-4">
+                                <Dropdown inline label="">
+                                    <Dropdown.Item>
+                                        <a
+                                            href="#"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        >
+                                            Edit
+                                        </a>
+                                    </Dropdown.Item>
+                                    <Dropdown.Item>
+                                        <a
+                                            href="#"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        >
+                                            Export Data
+                                        </a>
+                                    </Dropdown.Item>
+                                    <Dropdown.Item>
+                                        <a
+                                            href="#"
+                                            className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        >
+                                            Delete
+                                        </a>
+                                    </Dropdown.Item>
+                                </Dropdown>
+                            </div>
+
+                            {/* Ícone centralizado no topo */}
                             <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center justify-center bg-gray-100 rounded-full p-2 shadow-md">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -46,10 +84,13 @@ export default function Folder({ auth }: PageProps) {
                                     />
                                 </svg>
                             </div>
-                            <br />
+
+                            {/* Conteúdo principal da card */}
                             <div className="flex flex-col items-center pb-10">
                                 <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                                    {auth.user.name}
+                                    <Link href={route('file')} >
+                                        {auth.user.name}
+                                    </Link>
                                 </h5>
                                 <span className="text-sm text-gray-500 dark:text-gray-400">
                                     2 GB
@@ -59,6 +100,30 @@ export default function Folder({ auth }: PageProps) {
                     </div>
                 </div>
             </div>
+
+            {/* Modal */}
+            <Modal show={isModalOpen} onClose={toggleModal}>
+                <Modal.Header>Add a New Folder</Modal.Header>
+                <Modal.Body>
+                    <form>
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700">
+                                Folder Name
+                            </label>
+                            <input
+                                type="text"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                placeholder="Enter folder name"
+                            />
+                        </div>
+                        <div className="flex justify-end">
+                            <Button onClick={toggleModal} className="bg-blue-950">
+                                Create
+                            </Button>
+                        </div>
+                    </form>
+                </Modal.Body>
+            </Modal>
 
         </AuthenticatedLayout>
     );
