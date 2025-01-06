@@ -25,4 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//*Start with the main routes
+Route::inertia('/folders', 'Folder')->name('folder');
+Route::inertia('/file', 'File')->name('file');
+Route::inertia('/users', 'User')->name('user');
+Route::inertia('/settings', 'Setting')->name('settings');
+
 require __DIR__.'/auth.php';
