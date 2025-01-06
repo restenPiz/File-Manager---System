@@ -26,7 +26,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
     };
 
     return (
-        <GuestLayout background-color="blue">
+        <GuestLayout>
             <Head title="File Manager - Login" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
