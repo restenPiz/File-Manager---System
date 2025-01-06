@@ -2,12 +2,14 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Head, Link } from "@inertiajs/react";
 import { Card } from "flowbite-react";
+import { Button } from "flowbite-react";
 
 export default function Folder({ auth }: PageProps) {
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Folders</h2>}
+
         >
 
             {/*Main content*/}
@@ -15,8 +17,16 @@ export default function Folder({ auth }: PageProps) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="flex space-x-8"> {/* Flex container para colocar os elementos lado a lado */}
+                    {/* Linha com o botão e o card */}
+                    <div className="flex justify-between items-center mb-8">
+                        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                            File Manager
+                        </h2>
+                        <Button className="bg-blue-950">Add a new folder</Button>
+                    </div>
 
+                    {/* Container para os cards */}
+                    <div className="flex space-x-8">
                         {/* Card */}
                         <Card className="max-w-sm flex-1 relative">
                             {/* Ícone de Folder no centro superior */}
@@ -36,13 +46,16 @@ export default function Folder({ auth }: PageProps) {
                                     />
                                 </svg>
                             </div>
-
+                            <br />
                             <div className="flex flex-col items-center pb-10">
-                                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{auth.user.name}</h5>
-                                <span className="text-sm text-gray-500 dark:text-gray-400">2 GB</span>
+                                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                                    {auth.user.name}
+                                </h5>
+                                <span className="text-sm text-gray-500 dark:text-gray-400">
+                                    2 GB
+                                </span>
                             </div>
                         </Card>
-
                     </div>
                 </div>
             </div>
