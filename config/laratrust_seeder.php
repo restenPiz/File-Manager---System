@@ -8,8 +8,9 @@ return [
     'roles_structure' => [
         'super' => [
             'users' => 'c,r,u,d',
-            'payments' => 'c,r,u,d',
-            'profile' => 'r,u',
+            'folder' => 'c,r,u,d,p,s,t',
+            'file' => 'c,r,u,d,p,s,t',
+            'settings' => 'c,u,d'
         ],
     ],
 
