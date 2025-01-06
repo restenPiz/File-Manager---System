@@ -11,7 +11,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
 
     return (
         <div className="min-h-screen bg-blue-100">
-            <nav className="bg-red border-b border-gray-100">
+            <nav className="bg-blue-950 border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -21,11 +21,11 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                            <div className="text-gray space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink className="text-gray" href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
-                                <NavLink href={route('folder')} active={route().current('folder')}>
+                                <NavLink className="text-white-100" href={route('folder')} active={route().current('folder')}>
                                     Folders
                                 </NavLink>
                                 <NavLink href={route('file')} active={route().current('file')}>
