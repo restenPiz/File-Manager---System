@@ -29,4 +29,14 @@ class User extends Authenticatable implements LaratrustUser
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    //*Start with the relationship method
+    public function folders(): HasMany
+    {
+        return $this->hasMany(Folder::class)->chaperone();
+    }
+    public function files(): HasMany
+    {
+        return $this->hasMany(File::class)->chaperone();
+    }
 }

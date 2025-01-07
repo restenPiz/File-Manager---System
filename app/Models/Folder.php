@@ -14,4 +14,10 @@ class Folder extends Model
     protected $fillable = [
 
     ];
+
+    //*Start with relationship method
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
