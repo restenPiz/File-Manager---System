@@ -14,4 +14,9 @@ class File extends Model
     protected $fillable = [
 
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
+    }
 }

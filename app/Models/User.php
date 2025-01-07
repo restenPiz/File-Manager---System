@@ -33,10 +33,10 @@ class User extends Authenticatable implements LaratrustUser
     //*Start with the relationship method
     public function folders(): HasMany
     {
-        return $this->hasMany(Folder::class)->chaperone();
+        return $this->hasMany(Folder::class, 'id_user', 'id');
     }
     public function files(): HasMany
     {
-        return $this->hasMany(File::class)->chaperone();
+        return $this->hasMany(File::class, 'id_user', 'id');
     }
 }
