@@ -22,4 +22,8 @@ class Folder extends Model
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
+    public function file(): HasMany
+    {
+        return $this->hasMany(File::class, 'id_folder', 'id');
+    }
 }
