@@ -28,9 +28,28 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                 <NavLink className="text-white-100" href={route('folder')} active={route().current('folder') || route().current('file')}>
                                     Folders
                                 </NavLink>
-                                <NavLink href={route('user')} active={route().current('user')}>
-                                    Users
-                                </NavLink>
+                                <Dropdown>
+                                    <Dropdown.Trigger>
+                                        <span className="cursor-pointer inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none text-white hover:text-gray-700">
+                                            Users
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-4 h-4 ml-1"
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                            </svg>
+                                        </span>
+                                    </Dropdown.Trigger>
+                                    <Dropdown.Content align="right" width="48">
+                                        <Dropdown.Link href={route('user')}>Add User</Dropdown.Link>
+                                        <Dropdown.Link href={route('user')}>User List</Dropdown.Link>
+                                        <Dropdown.Link href={route('user')}>Manage Roles</Dropdown.Link>
+                                    </Dropdown.Content>
+                                </Dropdown>
                                 <NavLink href={route('settings')} active={route().current('settings')}>
                                     Settings
                                 </NavLink>
