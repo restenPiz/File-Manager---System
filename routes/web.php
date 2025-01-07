@@ -30,6 +30,6 @@ Route::inertia('/folders', 'Folder')->name('folder');
 Route::inertia('/file', 'File')->name('file');
 Route::inertia('/users', 'User')->name('user');
 Route::inertia('/rolesandpermissions', 'RolesPermissions')->name('roles');
-Route::inertia('/settings', 'Setting')->name('settings');
+Route::inertia('/settings', 'Settings')->name('settings');
 
 require __DIR__.'/auth.php';
