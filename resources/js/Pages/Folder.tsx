@@ -2,14 +2,35 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Head, Link } from "@inertiajs/react";
 import { Card } from "flowbite-react";
-import { useState } from "react";
 import { Modal, Button, Dropdown } from "flowbite-react";
+import { useState } from 'react';
+import { router } from '@inertiajs/react';
 
 export default function Folder({ auth }: PageProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+    const [values, setValues] = useState({
+        Folder_name: "",
+        id_user: "",
+        Parent_id: "",
+    })
+
+    function handleChange(e) {
+        const key = e.target.id;
+        const value = e.target.value
+        setValues(values => ({
+            ...values,
+            [key]: value,
+        }))
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        router.post('/storeFolder', values)
+    }
 
     return (
         <AuthenticatedLayout

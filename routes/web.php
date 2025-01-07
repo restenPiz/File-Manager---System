@@ -32,4 +32,7 @@ Route::inertia('/users', 'User')->name('user');
 Route::inertia('/rolesandpermissions', 'RolesPermissions')->name('roles');
 Route::inertia('/settings', 'Settings')->name('settings');
 
+//*Start with the Requests methods
+Route::post('/storeFolder', [folderController::class, 'store'])->name('storeFolder');
+
 require __DIR__.'/auth.php';
