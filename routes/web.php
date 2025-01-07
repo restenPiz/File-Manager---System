@@ -34,5 +34,7 @@ Route::inertia('/settings', 'Settings')->name('settings');
 
 //*Start with the Requests methods
 Route::post('/storeFolder', [folderController::class, 'store'])->name('storeFolder');
+Route::post('/updateFolder/{id}', [folderController::class, 'update'])->name('updateFolder');
+Route::post('/deleteFolder/{id}', [folderController::class, 'delete'])->name('deleteFolder');
 
 require __DIR__.'/auth.php';
