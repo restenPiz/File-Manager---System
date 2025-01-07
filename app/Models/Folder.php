@@ -12,7 +12,9 @@ class Folder extends Model
     protected $table = 'folders';
 
     protected $fillable = [
-
+        'Folder_name',
+        'id_user',
+        'Parent_id'
     ];
 
     //*Start with relationship method
