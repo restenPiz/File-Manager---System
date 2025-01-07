@@ -57,8 +57,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                             </Dropdown.Trigger>
                                             <Dropdown.Content align="right" width="48">
                                                 <Dropdown.Link href={route('user')}>Manage Users</Dropdown.Link>
-                                                <Dropdown.Link href={route('user')}>Manage Roles</Dropdown.Link>
-                                                <Dropdown.Link href={route('user')}>Manage Permissions</Dropdown.Link>
+                                                <Dropdown.Link href={route('roles')}>Manage Roles and Permissions</Dropdown.Link>
                                             </Dropdown.Content>
                                         </Dropdown>
                                     </div>
