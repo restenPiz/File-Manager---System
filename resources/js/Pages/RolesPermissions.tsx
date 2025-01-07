@@ -11,6 +11,12 @@ export default function RolesPermissions({ auth }: PageProps) {
         >
             <Head title="File Manager" />
 
+            <div className="hidden sm:flex sm:items-center sm:ms-6">
+                <div className="ms-3 relative">
+
+                </div>
+            </div>
+
         </AuthenticatedLayout>
     );
 }
