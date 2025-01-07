@@ -14,7 +14,7 @@ export default function Folder({ auth }: PageProps) {
 
     const [values, setValues] = useState({
         Folder_name: "",
-        id_user: "",
+        user_id: auth.user.id,
         Parent_id: "",
     })
 
@@ -126,19 +126,21 @@ export default function Folder({ auth }: PageProps) {
             <Modal show={isModalOpen} onClose={toggleModal}>
                 <Modal.Header>Add a New Folder</Modal.Header>
                 <Modal.Body>
-                    <form>
+                    <form onSubmit={handleSubmit} method="post">
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">
                                 Folder Name
                             </label>
-                            <input
+                            <input onChange={handleChange} name="Folder_name"
                                 type="text"
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="Enter folder name"
                             />
+                            <input type="hidden" value={auth.user.id} name="id_user" />
+                            <input type="hidden" name="Parent_id" />
                         </div>
                         <div className="flex justify-end">
-                            <Button onClick={toggleModal} className="bg-blue-950">
+                            <Button name="submit" className="bg-blue-950">
                                 Create
                             </Button>
                         </div>
