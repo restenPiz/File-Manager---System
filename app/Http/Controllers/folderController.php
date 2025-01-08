@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class folderController extends Controller
 {
+    public function index()
+    {
+        $folders = Folder::all();
+
+        return Inertia::render('Folder', [
+            'folders' => $folders,
+        ]);
+    }
     public function store(Request $request)
     {
         // dd($request->all());
