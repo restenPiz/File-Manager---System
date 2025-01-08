@@ -23,11 +23,13 @@ export default function Folder({ auth }: PageProps) {
         post(route('storeFolder'), {
             onSuccess: () => {
                 setSuccessMessage('Pasta adicionada com sucesso!');
-                reset(); // Limpa o formulário
+                toggleModal(); // Fecha o modal
+                reset();
+                 // Limpa o formulário
                 setTimeout(() => {
                     setSuccessMessage(null); // Remove a mensagem de sucesso
                     setIsModalOpen(false); // Fecha o modal após 5s
-                }, 5000); // 5000ms = 5s
+                }, 3000); // 5000ms = 5s
             },
         });
     };
