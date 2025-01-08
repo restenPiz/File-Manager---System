@@ -1,9 +1,9 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import { Card } from "flowbite-react";
 import { Modal, Button, Dropdown } from "flowbite-react";
-import { useState } from 'react';
+import { FormEventHandler, useState } from 'react';
 import { router } from '@inertiajs/react';
 
 export default function Folder({ auth }: PageProps) {
@@ -12,25 +12,23 @@ export default function Folder({ auth }: PageProps) {
 
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-    const [values, setValues] = useState({
+    // const [values, setValues] = useState({
+    //     Folder_name: "",
+    //     user_id: auth.user.id,
+    //     Parent_id: "",
+    // })
+
+    const { post, processing, errors, reset } = useForm({
         Folder_name: "",
         user_id: auth.user.id,
         Parent_id: "",
-    })
+    });
 
-    function handleChange(e) {
-        const key = e.target.id;
-        const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
-    }
+    const handleSubmit: FormEventHandler = (e) => {
+        e.preventDefault();
 
-    function handleSubmit(e) {
-        e.preventDefault()
-        router.post('/storeFolder', values)
-    }
+        post(route('storeFolder'));
+    };
 
     return (
         <AuthenticatedLayout
@@ -131,7 +129,7 @@ export default function Folder({ auth }: PageProps) {
                             <label className="block text-sm font-medium text-gray-700">
                                 Folder Name
                             </label>
-                            <input onChange={handleChange} name="Folder_name"
+                            <input name="Folder_name"
                                 type="text"
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="Enter folder name"
@@ -140,7 +138,7 @@ export default function Folder({ auth }: PageProps) {
                             <input type="hidden" name="Parent_id" />
                         </div>
                         <div className="flex justify-end">
-                            <Button name="submit" className="bg-blue-950">
+                            <Button type="submit" className="bg-blue-950">
                                 Create
                             </Button>
                         </div>
