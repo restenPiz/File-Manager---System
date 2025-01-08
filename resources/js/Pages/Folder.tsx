@@ -1,10 +1,9 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { Card } from "flowbite-react";
 import { Modal, Button, Dropdown } from "flowbite-react";
 import { FormEventHandler, useState } from 'react';
-import { router } from '@inertiajs/react';
 
 export default function Folder({ auth }: PageProps) {
 
@@ -12,22 +11,21 @@ export default function Folder({ auth }: PageProps) {
 
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-    // const [values, setValues] = useState({
-    //     Folder_name: "",
-    //     user_id: auth.user.id,
-    //     Parent_id: "",
-    // })
-
     const { post, data, processing, errors, reset, setData } = useForm({
         Folder_name: "",
-        user_id: auth.user.id,
-        Parent_id: "",
+        id_user: auth.user.id,
+        Parent_id: 1,
     });
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('storeFolder'));
+        post(route('storeFolder'), {
+            onSuccess: () => {
+                toggleModal(); // Fecha o modal
+                reset(); // Reseta o formulário
+            },
+        });
     };
 
     return (
@@ -42,6 +40,9 @@ export default function Folder({ auth }: PageProps) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+                    {/*Inicio do alerta de sucesso*/}
+
                     {/* Header com o título e botão */}
                     <div className="flex justify-between items-center mb-8">
                         <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
@@ -140,13 +141,12 @@ export default function Folder({ auth }: PageProps) {
                             <input
                                 type="hidden"
                                 value={auth.user.id}
-                                name="user_id"
+                                name="id_user"
                             />
                             <input
                                 type="hidden"
                                 name="Parent_id"
-                                value={data.Parent_id}
-                                onChange={(e) => setData('Parent_id', e.target.value)} // Atualiza Parent_id se necessário
+                                value={data.Parent_id} // Atualiza Parent_id se necessário
                             />
                         </div>
                         <div className="flex justify-end">

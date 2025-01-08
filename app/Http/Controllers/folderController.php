@@ -13,7 +13,7 @@ class folderController extends Controller
         $table = new Folder();
 
         $table->Folder_name = $request->input('Folder_name');
-        $table->user_id = $request->input('user_id');
+        $table->id_user = $request->input('id_user');
         $table->Parent_id = $request->input('Parent_id');
         $table->save();
 
