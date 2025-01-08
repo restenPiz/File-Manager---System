@@ -1,11 +1,21 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { PageProps } from "@/types";
+// import { PageProps } from "@/types";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { Alert, Card } from "flowbite-react";
 import { Modal, Button, Dropdown } from "flowbite-react";
 import { FormEventHandler, useState } from 'react';
 
-export default function Folder({ auth }: PageProps) {
+interface Folder {
+    id: number;
+    Folder_name: string;
+}
+
+interface PageProps {
+    auth: { user: { id: number } };
+    folders: Folder[];
+}
+
+export default function Folder({ auth, folders }: PageProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const toggleModal = () => setIsModalOpen(!isModalOpen);
@@ -70,69 +80,71 @@ export default function Folder({ auth }: PageProps) {
                     </div>
 
                     {/* Container para os cards */}
-                    <div className="flex space-x-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                         {/* Card */}
-                        <Card className="max-w-sm flex-1 relative">
-                            {/* Dropdown de ações no canto superior direito */}
-                            <div className="flex justify-end px-4 pt-4">
-                                <Dropdown inline label="">
-                                    <Dropdown.Item>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        >
-                                            Edit
-                                        </a>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        >
-                                            Export Data
-                                        </a>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        >
-                                            Delete
-                                        </a>
-                                    </Dropdown.Item>
-                                </Dropdown>
-                            </div>
+                        {folders.map((folder) => (
+                            <Card className="max-w-sm flex-1 relative">
+                                {/* Dropdown de ações no canto superior direito */}
+                                <div className="flex justify-end px-4 pt-4">
+                                    <Dropdown inline label="">
+                                        <Dropdown.Item>
+                                            <a
+                                                href="#"
+                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            >
+                                                Edit
+                                            </a>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item>
+                                            <a
+                                                href="#"
+                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            >
+                                                Export Data
+                                            </a>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item>
+                                            <a
+                                                href="#"
+                                                className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            >
+                                                Delete
+                                            </a>
+                                        </Dropdown.Item>
+                                    </Dropdown>
+                                </div>
 
-                            {/* Ícone centralizado no topo */}
-                            <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center justify-center bg-gray-100 rounded-full p-2 shadow-md">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-6 h-6 text-blue-600"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M3.75 6.75v10.5a2.25 2.25 0 002.25 2.25h12a2.25 2.25 0 002.25-2.25V8.25a2.25 2.25 0 00-2.25-2.25h-7.28a.75.75 0 01-.53-.22L6.97 3.53a.75.75 0 00-.53-.22H6a2.25 2.25 0 00-2.25 2.25z"
-                                    />
-                                </svg>
-                            </div>
+                                {/* Ícone centralizado no topo */}
+                                <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center justify-center bg-gray-100 rounded-full p-2 shadow-md">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6 text-blue-600"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M3.75 6.75v10.5a2.25 2.25 0 002.25 2.25h12a2.25 2.25 0 002.25-2.25V8.25a2.25 2.25 0 00-2.25-2.25h-7.28a.75.75 0 01-.53-.22L6.97 3.53a.75.75 0 00-.53-.22H6a2.25 2.25 0 00-2.25 2.25z"
+                                        />
+                                    </svg>
+                                </div>
 
-                            {/* Conteúdo principal da card */}
-                            <div className="flex flex-col items-center pb-10">
-                                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                                    <Link href={route('file')} >
-                                        {auth.user.name}
-                                    </Link>
-                                </h5>
-                                <span className="text-sm text-gray-500 dark:text-gray-400">
-                                    2 GB
-                                </span>
-                            </div>
-                        </Card>
+                                {/* Conteúdo principal da card */}
+                                <div className="flex flex-col items-center pb-10">
+                                    <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                                        <Link href={route('file')} >
+                                            {folder.Folder_name}
+                                        </Link>
+                                    </h5>
+                                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                                        2 GB
+                                    </span>
+                                </div>
+                            </Card>
+                        ))}
                     </div>
                 </div>
             </div>

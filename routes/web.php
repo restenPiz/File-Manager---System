@@ -27,13 +27,14 @@ Route::middleware('auth')->group(function () {
 });
 
 //*Start with the main routes
-Route::inertia('/folders', 'Folder')->name('folder');
+// Route::inertia('/folders', 'Folder')->name('folder');
 Route::inertia('/file', 'File')->name('file');
 Route::inertia('/users', 'User')->name('user');
 Route::inertia('/rolesandpermissions', 'RolesPermissions')->name('roles');
 Route::inertia('/settings', 'Settings')->name('settings');
 
 //*Start with the Requests methods
+Route::get('/folders', [folderController::class, 'index'])->name('folder');
 Route::post('/storeFolder', [folderController::class, 'store'])->name('storeFolder');
 Route::post('/updateFolder/{id}', [folderController::class, 'update'])->name('updateFolder');
 Route::post('/deleteFolder/{id}', [folderController::class, 'delete'])->name('deleteFolder');
