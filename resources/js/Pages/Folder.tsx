@@ -1,15 +1,15 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import { Card } from "flowbite-react";
+import { Alert, Card } from "flowbite-react";
 import { Modal, Button, Dropdown } from "flowbite-react";
 import { FormEventHandler, useState } from 'react';
 
 export default function Folder({ auth }: PageProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const toggleModal = () => setIsModalOpen(!isModalOpen);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
     const { post, data, processing, errors, reset, setData } = useForm({
         Folder_name: "",
@@ -17,13 +17,17 @@ export default function Folder({ auth }: PageProps) {
         Parent_id: 1,
     });
 
-    const handleSubmit: FormEventHandler = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         post(route('storeFolder'), {
             onSuccess: () => {
-                toggleModal(); // Fecha o modal
-                reset(); // Reseta o formulário
+                setSuccessMessage('Pasta adicionada com sucesso!');
+                reset(); // Limpa o formulário
+                setTimeout(() => {
+                    setSuccessMessage(null); // Remove a mensagem de sucesso
+                    setIsModalOpen(false); // Fecha o modal após 5s
+                }, 5000); // 5000ms = 5s
             },
         });
     };
@@ -40,9 +44,6 @@ export default function Folder({ auth }: PageProps) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-                    {/*Inicio do alerta de sucesso*/}
-
                     {/* Header com o título e botão */}
                     <div className="flex justify-between items-center mb-8">
                         <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
@@ -51,6 +52,19 @@ export default function Folder({ auth }: PageProps) {
                         <Button className="bg-blue-950" onClick={toggleModal}>
                             Add a new folder
                         </Button>
+                    </div>
+
+                    <div className="flex">
+                        {successMessage && (
+                            <div className=" z-50">
+                                <div
+                                    className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+                                    role="alert"
+                                >
+                                    <span className="font-medium">Sucesso!</span> {successMessage}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Container para os cards */}
