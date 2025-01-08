@@ -88,8 +88,7 @@ export default function Folder({ auth, folders }: PageProps) {
                                 <div className="flex justify-end px-4 pt-4">
                                     <Dropdown inline label="">
                                         <Dropdown.Item>
-                                            <a
-                                                href="#"
+                                            <a onClick={editModal}
                                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >
                                                 Edit
@@ -149,7 +148,7 @@ export default function Folder({ auth, folders }: PageProps) {
                 </div>
             </div>
 
-            {/* Modal */}
+            {/* Modal Create */}
             <Modal show={isModalOpen} onClose={toggleModal}>
                 <Modal.Header>Add a New Folder</Modal.Header>
                 <Modal.Body>
@@ -186,6 +185,42 @@ export default function Folder({ auth, folders }: PageProps) {
                 </Modal.Body>
             </Modal>
 
+            {/*Modal Edit*/}
+            <Modal show={isModalOpen} onClose={toggleModal}>
+                <Modal.Header>Update Folder</Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700">
+                                Folder Name
+                            </label>
+                            <input
+                                name="Folder_name"
+                                value={data.Folder_name}
+                                onChange={(e) => setData('Folder_name', e.target.value)} // Atualiza o valor corretamente
+                                type="text"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                placeholder="Enter folder name"
+                            />
+                            <input
+                                type="hidden"
+                                value={auth.user.id}
+                                name="id_user"
+                            />
+                            <input
+                                type="hidden"
+                                name="Parent_id"
+                                value={data.Parent_id} // Atualiza Parent_id se necessário
+                            />
+                        </div>
+                        <div className="flex justify-end">
+                            <Button type="submit" className="bg-blue-950">
+                                Create
+                            </Button>
+                        </div>
+                    </form>
+                </Modal.Body>
+            </Modal>
         </AuthenticatedLayout>
     );
 }
