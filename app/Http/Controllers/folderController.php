@@ -9,12 +9,14 @@ class folderController extends Controller
 {
     public function store(Request $request)
     {
-        Folder::create($request->validate([
-            'Folder_name' => ['required', 'max:50'],
-            'id_user' => ['required', 'max:50'],
-            'Parent_id',
-        ]));
+        dd($request->all());
+        // $table = new Folder();
 
-        return to_route('folder');
+        // $table->Folder_name = $request->input('Folder_name');
+        // $table->id_user = $request->input('id_user');
+        // $table->Parent_id = $request->input('Parent_id');
+        // $table->save();
+
+        // return to_route('folder');
     }
 }

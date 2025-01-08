@@ -18,7 +18,7 @@ export default function Folder({ auth }: PageProps) {
     //     Parent_id: "",
     // })
 
-    const { post, processing, errors, reset } = useForm({
+    const { post, data, processing, errors, reset, setData } = useForm({
         Folder_name: "",
         user_id: auth.user.id,
         Parent_id: "",
@@ -124,18 +124,30 @@ export default function Folder({ auth }: PageProps) {
             <Modal show={isModalOpen} onClose={toggleModal}>
                 <Modal.Header>Add a New Folder</Modal.Header>
                 <Modal.Body>
-                    <form onSubmit={handleSubmit} method="post">
+                    <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">
                                 Folder Name
                             </label>
-                            <input name="Folder_name"
+                            <input
+                                name="Folder_name"
+                                value={data.Folder_name}
+                                onChange={(e) => setData('Folder_name', e.target.value)} // Atualiza o valor corretamente
                                 type="text"
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="Enter folder name"
                             />
-                            <input type="hidden" value={auth.user.id} name="id_user" />
-                            <input type="hidden" name="Parent_id" />
+                            <input
+                                type="hidden"
+                                value={auth.user.id}
+                                name="user_id"
+                            />
+                            <input
+                                type="hidden"
+                                name="Parent_id"
+                                value={data.Parent_id}
+                                onChange={(e) => setData('Parent_id', e.target.value)} // Atualiza Parent_id se necessário
+                            />
                         </div>
                         <div className="flex justify-end">
                             <Button type="submit" className="bg-blue-950">
