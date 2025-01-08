@@ -19,6 +19,7 @@ export default function Folder({ auth, folders }: PageProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const toggleModal = () => setIsModalOpen(!isModalOpen);
+    const editModal = () => setIsModalOpen(!isModalOpen);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
     const { post, data, processing, errors, reset, setData } = useForm({
@@ -186,7 +187,7 @@ export default function Folder({ auth, folders }: PageProps) {
             </Modal>
 
             {/*Modal Edit*/}
-            <Modal show={isModalOpen} onClose={toggleModal}>
+            <Modal show={isModalOpen} onClose={editModal}>
                 <Modal.Header>Update Folder</Modal.Header>
                 <Modal.Body>
                     <form onSubmit={handleSubmit}>
