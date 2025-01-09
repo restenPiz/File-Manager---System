@@ -188,7 +188,7 @@ export default function Folder({ auth, folders }: PageProps) {
 
             {/*Modal Edit*/}
             <Modal show={isModalOpen} onClose={editModal}>
-                <Modal.Header>Update Folder</Modal.Header>
+                <Modal.Header>Edit Folder</Modal.Header>
                 <Modal.Body>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
