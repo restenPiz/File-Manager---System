@@ -47,19 +47,10 @@ export default function Folder({ auth, folders }: PageProps) {
 
     const handleEdit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        post(route('updateFolder'), {
-            onSuccess: () => {
-                setSuccessMessage('Pasta actualizada com sucesso!');
-                toggleModal();
-                reset();
-                // Limpa o formulário
-                setTimeout(() => {
-                    setSuccessMessage(null);
-                    setIsModalOpen(false);
-                }, 3000);
-            },
+        post(route('updateFolder', { id: data.id_user }), {
+            data,
         });
+        setIsModalOpen(false); 
     };
 
     return (
