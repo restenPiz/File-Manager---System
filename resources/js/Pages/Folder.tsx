@@ -48,7 +48,7 @@ export default function Folder({ auth, folders }: PageProps) {
         setIsDeleteModalOpen(true); // Abre o modal de confirmação
     };
 
-    //* Método de request para criação de pasta
+    //*Start with the CREATE, UPDATE, DELETE function
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -64,7 +64,6 @@ export default function Folder({ auth, folders }: PageProps) {
         });
     };
 
-    //* Método de request para edição de pasta
     const handleEdit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -291,7 +290,7 @@ export default function Folder({ auth, folders }: PageProps) {
                     <Button color="gray" onClick={toggleDeleteModal}>
                         Cancel
                     </Button>
-                    <Button className="bg-red-700 text-gray-100" color="gray" onClick={handleDelete}>
+                    <Button className="bg-red-700 text-gray-100" color="failure" onClick={handleDelete}>
                         Confirm
                     </Button>
                 </Modal.Footer>
