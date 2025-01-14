@@ -18,7 +18,7 @@ export default function Folder({ auth, folders }: PageProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const toggleModal = () => setIsModalOpen(!isModalOpen);
-    const editModal = () => setIsModalOpen(!isModalOpen);
+    // const editModal = () => setIsModalOpen(!isModalOpen);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
     const { post, data, reset, setData: setFormData } = useForm({
