@@ -35,13 +35,30 @@ export default function Folder({ auth, folders }: PageProps) {
         post(route('storeFolder'), {
             onSuccess: () => {
                 setSuccessMessage('Pasta adicionada com sucesso!');
-                toggleModal(); // Fecha o modal
+                toggleModal();
                 reset();
-                 // Limpa o formulário
+                // Limpa o formulário
                 setTimeout(() => {
-                    setSuccessMessage(null); // Remove a mensagem de sucesso
-                    setIsModalOpen(false); // Fecha o modal após 5s
-                }, 3000); // 5000ms = 5s
+                    setSuccessMessage(null);
+                    setIsModalOpen(false);
+                }, 3000);
+            },
+        });
+    };
+
+    const handleEdit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        post(route('updateFolder'), {
+            onSuccess: () => {
+                setSuccessMessage('Pasta actualizada com sucesso!');
+                toggleModal();
+                reset();
+                // Limpa o formulário
+                setTimeout(() => {
+                    setSuccessMessage(null);
+                    setIsModalOpen(false);
+                }, 3000);
             },
         });
     };
