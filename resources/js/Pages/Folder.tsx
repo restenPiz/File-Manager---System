@@ -50,7 +50,7 @@ export default function Folder({ auth, folders }: PageProps) {
 
         post(route('storeFolder'), {
             onSuccess: () => {
-                setSuccessMessage('Pasta adicionada com sucesso!');
+                setSuccessMessage('Folder added successfully!');
                 setIsCreateModalOpen(false);
                 reset(); // Limpa o formulário
                 setTimeout(() => {
@@ -71,7 +71,7 @@ export default function Folder({ auth, folders }: PageProps) {
                     id_user: data.id_user,
                 },
                 onSuccess: () => {
-                    setSuccessMessage('Pasta actualizada com sucesso!');
+                    setSuccessMessage('Folder updated with successfully!');
                     setIsEditModalOpen(false);
                     setEditingFolder(null);
                     reset(); 
@@ -87,7 +87,7 @@ export default function Folder({ auth, folders }: PageProps) {
         if (deletingFolderId !== null) {
             post(route('deleteFolder', { id: deletingFolderId }), {
                 onSuccess: () => {
-                    setSuccessMessage('Pasta excluída com sucesso!');
+                    setSuccessMessage('Folder deleted successfully!');
                     setIsDeleteModalOpen(false);
                     setDeletingFolderId(null); 
                     setTimeout(() => {
