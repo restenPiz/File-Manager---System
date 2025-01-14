@@ -15,45 +15,40 @@ interface PageProps {
 }
 
 export default function Folder({ auth, folders }: PageProps) {
+    // Estados para controlar a visibilidade dos modais
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const toggleModal = () => setIsModalOpen(!isModalOpen);
-    const editModal = () => setIsModalOpen(!isModalOpen);
-    const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
+    // Estado para controlar a pasta sendo editada
     const [editingFolder, setEditingFolder] = useState<Folder | null>(null);
 
-    const { post, data, reset, setData: setFormData } = useForm({
+    // Mensagem de sucesso
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+    // Formulário de dados
+    const { post, data, reset, setData } = useForm({
         Folder_name: "",
         id_user: auth.user.id,
         Parent_id: 1,
     });
 
-    //*Inicio do metodo request
+    //* Método de request para criação de pasta
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         post(route('storeFolder'), {
             onSuccess: () => {
                 setSuccessMessage('Pasta adicionada com sucesso!');
-                toggleModal();
-                reset();
-                // Limpa o formulário
+                setIsCreateModalOpen(false);
+                reset(); // Limpa o formulário
                 setTimeout(() => {
                     setSuccessMessage(null);
-                    setIsModalOpen(false);
                 }, 3000);
             },
         });
     };
 
-    const openEditModal = (folder: Folder) => {
-        setEditingFolder(folder);
-        setData('Folder_name', folder.Folder_name);
-        setIsModalOpen(true); 
-    };
-
-    //*Inicio do metodo que faz as atualizacoes dos dados
+    //* Método de request para edição de pasta
     const handleEdit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -66,27 +61,31 @@ export default function Folder({ auth, folders }: PageProps) {
                 },
                 onSuccess: () => {
                     setSuccessMessage('Pasta editada com sucesso!');
-                    toggleModal();
+                    setIsEditModalOpen(false);
                     setEditingFolder(null); // Reseta a pasta sendo editada
                     reset(); // Limpa o formulário
-
                     setTimeout(() => {
                         setSuccessMessage(null);
-                        setIsModalOpen(false);
                     }, 3000);
                 },
             });
         }
     };
 
+    // Função para abrir o modal de edição e preencher os dados
+    const openEditModal = (folder: Folder) => {
+        setEditingFolder(folder); // Atualiza os dados da pasta sendo editada
+        setData('Folder_name', folder.Folder_name); // Preenche o campo do formulário
+        setIsEditModalOpen(true); // Abre o modal de edição
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Folders</h2>}
-
         >
 
-            {/*Main content*/}
+            {/* Main content */}
             <Head title="File Manager" />
 
             <div className="py-12">
@@ -96,14 +95,14 @@ export default function Folder({ auth, folders }: PageProps) {
                         <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
                             File Manager
                         </h2>
-                        <Button className="bg-blue-950" onClick={toggleModal}>
+                        <Button className="bg-blue-950" onClick={() => setIsCreateModalOpen(true)}>
                             Add a new folder
                         </Button>
                     </div>
 
                     <div className="flex">
                         {successMessage && (
-                            <div className=" z-50">
+                            <div className="z-50">
                                 <div
                                     className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
                                     role="alert"
@@ -184,8 +183,8 @@ export default function Folder({ auth, folders }: PageProps) {
                 </div>
             </div>
 
-            {/* Modal Create */}
-            <Modal show={isModalOpen} onClose={toggleModal}>
+            {/* Modal de Criação */}
+            <Modal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}>
                 <Modal.Header>Add a New Folder</Modal.Header>
                 <Modal.Body>
                     <form onSubmit={handleSubmit}>
@@ -196,7 +195,7 @@ export default function Folder({ auth, folders }: PageProps) {
                             <input
                                 name="Folder_name"
                                 value={data.Folder_name}
-                                onChange={(e) => setData('Folder_name', e.target.value)} // Atualiza o valor corretamente
+                                onChange={(e) => setData('Folder_name', e.target.value)}
                                 type="text"
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="Enter folder name"
@@ -209,7 +208,7 @@ export default function Folder({ auth, folders }: PageProps) {
                             <input
                                 type="hidden"
                                 name="Parent_id"
-                                value={data.Parent_id} // Atualiza Parent_id se necessário
+                                value={data.Parent_id}
                             />
                         </div>
                         <div className="flex justify-end">
@@ -221,8 +220,8 @@ export default function Folder({ auth, folders }: PageProps) {
                 </Modal.Body>
             </Modal>
 
-            {/*Modal Edit*/}
-            <Modal show={isModalOpen} onClose={editModal}>
+            {/* Modal de Edição */}
+            <Modal show={isEditModalOpen} onClose={() => setIsEditModalOpen(false)}>
                 <Modal.Header>Edit Folder</Modal.Header>
                 <Modal.Body>
                     <form onSubmit={handleEdit}>
@@ -233,7 +232,7 @@ export default function Folder({ auth, folders }: PageProps) {
                             <input
                                 name="Folder_name"
                                 value={data.Folder_name}
-                                onChange={(e) => setData('Folder_name', e.target.value)} // Atualiza o valor corretamente
+                                onChange={(e) => setData('Folder_name', e.target.value)}
                                 type="text"
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="Enter folder name"
@@ -246,21 +245,18 @@ export default function Folder({ auth, folders }: PageProps) {
                             <input
                                 type="hidden"
                                 name="Parent_id"
-                                value={data.Parent_id} // Atualiza Parent_id se necessário
+                                value={data.Parent_id}
                             />
                         </div>
                         <div className="flex justify-end">
                             <Button type="submit" className="bg-blue-950">
-                                Create
+                                Save Changes
                             </Button>
                         </div>
                     </form>
                 </Modal.Body>
             </Modal>
+
         </AuthenticatedLayout>
     );
-}
-
-function setData(arg0: string, Folder_name: string) {
-    throw new Error("Function not implemented.");
 }
