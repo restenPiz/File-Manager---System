@@ -53,6 +53,7 @@ export default function Folder({ auth, folders }: PageProps) {
         setIsModalOpen(true); 
     };
 
+    //*Inicio do metodo que faz as atualizacoes dos dados
     const handleEdit = (e: React.FormEvent) => {
         e.preventDefault();
 
