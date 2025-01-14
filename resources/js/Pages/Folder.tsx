@@ -15,21 +15,17 @@ interface PageProps {
 }
 
 export default function Folder({ auth, folders }: PageProps) {
-    // Estados para controlar a visibilidade dos modais
+
+    //*Inicio dos estados da app
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [deletingFolderId, setDeletingFolderId] = useState<number | null>(null);
-
     const toggleDeleteModal = () => setIsDeleteModalOpen(!isDeleteModalOpen);
 
-    // Estado para controlar a pasta sendo editada
     const [editingFolder, setEditingFolder] = useState<Folder | null>(null);
-
-    // Mensagem de sucesso
+    const [deletingFolderId, setDeletingFolderId] = useState<number | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    // Formulário de dados
     const { post, data, reset, setData } = useForm({
         Folder_name: "",
         id_user: auth.user.id,
@@ -77,8 +73,8 @@ export default function Folder({ auth, folders }: PageProps) {
                 onSuccess: () => {
                     setSuccessMessage('Pasta actualizada com sucesso!');
                     setIsEditModalOpen(false);
-                    setEditingFolder(null); // Reseta a pasta sendo editada
-                    reset(); // Limpa o formulário
+                    setEditingFolder(null);
+                    reset(); 
                     setTimeout(() => {
                         setSuccessMessage(null);
                     }, 3000);
@@ -92,8 +88,8 @@ export default function Folder({ auth, folders }: PageProps) {
             post(route('deleteFolder', { id: deletingFolderId }), {
                 onSuccess: () => {
                     setSuccessMessage('Pasta excluída com sucesso!');
-                    setIsDeleteModalOpen(false); // Fecha o modal de confirmação
-                    setDeletingFolderId(null); // Reseta o id da pasta excluída
+                    setIsDeleteModalOpen(false);
+                    setDeletingFolderId(null); 
                     setTimeout(() => {
                         setSuccessMessage(null);
                     }, 3000);
