@@ -21,7 +21,7 @@ export default function Folder({ auth, folders }: PageProps) {
     const editModal = () => setIsModalOpen(!isModalOpen);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    const { post, data, reset, setData } = useForm({
+    const { post, data, reset, setData: setFormData } = useForm({
         Folder_name: "",
         id_user: auth.user.id,
         Parent_id: 1,
@@ -51,6 +51,15 @@ export default function Folder({ auth, folders }: PageProps) {
             data,
         });
         setIsModalOpen(false); 
+    };
+
+    const editModal = (folderData) => {
+        setData({
+            Folder_name: folderData.Folder_name,
+            Parent_id: folderData.Parent_id,
+            id_user: folderData.id_user,
+        });
+        setIsModalOpen(true); // Abre o modal
     };
 
     return (
@@ -198,7 +207,7 @@ export default function Folder({ auth, folders }: PageProps) {
             <Modal show={isModalOpen} onClose={editModal}>
                 <Modal.Header>Edit Folder</Modal.Header>
                 <Modal.Body>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleEdit}>
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">
                                 Folder Name
