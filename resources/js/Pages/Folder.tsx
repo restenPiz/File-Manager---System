@@ -18,6 +18,10 @@ export default function Folder({ auth, folders }: PageProps) {
     // Estados para controlar a visibilidade dos modais
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [deletingFolderId, setDeletingFolderId] = useState<number | null>(null);
+
+    const toggleDeleteModal = () => setIsDeleteModalOpen(!isDeleteModalOpen);
 
     // Estado para controlar a pasta sendo editada
     const [editingFolder, setEditingFolder] = useState<Folder | null>(null);
@@ -31,6 +35,18 @@ export default function Folder({ auth, folders }: PageProps) {
         id_user: auth.user.id,
         Parent_id: 1,
     });
+
+    //* Função para abrir o modal de edição e preencher os dados
+    const openEditModal = (folder: Folder) => {
+        setEditingFolder(folder); // Atualiza os dados da pasta sendo editada
+        setData('Folder_name', folder.Folder_name); // Preenche o campo do formulário
+        setIsEditModalOpen(true); // Abre o modal de edição
+    };
+
+    const openDeleteModal = (id: number) => {
+        setDeletingFolderId(id);
+        setIsDeleteModalOpen(true); // Abre o modal de confirmação
+    };
 
     //* Método de request para criação de pasta
     const handleSubmit = (e: React.FormEvent) => {
@@ -72,11 +88,19 @@ export default function Folder({ auth, folders }: PageProps) {
         }
     };
 
-    // Função para abrir o modal de edição e preencher os dados
-    const openEditModal = (folder: Folder) => {
-        setEditingFolder(folder); // Atualiza os dados da pasta sendo editada
-        setData('Folder_name', folder.Folder_name); // Preenche o campo do formulário
-        setIsEditModalOpen(true); // Abre o modal de edição
+    const handleDelete = () => {
+        if (deletingFolderId !== null) {
+            post(route('deleteFolder', { id: deletingFolderId }), {
+                onSuccess: () => {
+                    setSuccessMessage('Pasta excluída com sucesso!');
+                    setIsDeleteModalOpen(false); // Fecha o modal de confirmação
+                    setDeletingFolderId(null); // Reseta o id da pasta excluída
+                    setTimeout(() => {
+                        setSuccessMessage(null);
+                    }, 3000);
+                },
+            });
+        }
     };
 
     return (
@@ -139,7 +163,7 @@ export default function Folder({ auth, folders }: PageProps) {
                                         </Dropdown.Item>
                                         <Dropdown.Item>
                                             <a
-                                                href="#"
+                                                onClick={() => openDeleteModal(folder.id)}
                                                 className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >
                                                 Delete
@@ -255,6 +279,22 @@ export default function Folder({ auth, folders }: PageProps) {
                         </div>
                     </form>
                 </Modal.Body>
+            </Modal>
+
+            {/*Inicio do modal de eliminar*/}
+            <Modal show={isDeleteModalOpen} onClose={toggleDeleteModal}>
+                <Modal.Header>Confirm Deletion</Modal.Header>
+                <Modal.Body>
+                    <p>Are you sure you want to delete this folder?</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button color="gray" onClick={toggleDeleteModal}>
+                        Cancel
+                    </Button>
+                    <Button className="bg-red-700 text-gray-100" color="gray" onClick={handleDelete}>
+                        Confirm
+                    </Button>
+                </Modal.Footer>
             </Modal>
 
         </AuthenticatedLayout>
