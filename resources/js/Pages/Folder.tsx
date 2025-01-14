@@ -60,7 +60,7 @@ export default function Folder({ auth, folders }: PageProps) {
                     id_user: data.id_user,
                 },
                 onSuccess: () => {
-                    setSuccessMessage('Pasta editada com sucesso!');
+                    setSuccessMessage('Pasta actualizada com sucesso!');
                     setIsEditModalOpen(false);
                     setEditingFolder(null); // Reseta a pasta sendo editada
                     reset(); // Limpa o formulário
