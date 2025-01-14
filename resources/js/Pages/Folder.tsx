@@ -18,8 +18,10 @@ export default function Folder({ auth, folders }: PageProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const toggleModal = () => setIsModalOpen(!isModalOpen);
-    // const editModal = () => setIsModalOpen(!isModalOpen);
+    const editModal = () => setIsModalOpen(!isModalOpen);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+    const [editingFolder, setEditingFolder] = useState<Folder | null>(null);
 
     const { post, data, reset, setData: setFormData } = useForm({
         Folder_name: "",
@@ -45,21 +47,37 @@ export default function Folder({ auth, folders }: PageProps) {
         });
     };
 
-    const handleEdit = (e: React.FormEvent) => {
-        e.preventDefault();
-        post(route('updateFolder', { id: data.id_user }), {
-            data,
-        });
-        setIsModalOpen(false); 
+    const openEditModal = (folder: Folder) => {
+        setEditingFolder(folder);
+        setData('Folder_name', folder.Folder_name); // Preenche o campo de nome da pasta
+        setData('Parent_id', folder.Parent_id); // Preenche o campo de Parent_id
+        setData('id_user', auth.user.id); // Preenche o campo de id_user
+        setIsModalOpen(true); // Abre o modal
     };
 
-    const editModal = (folderData) => {
-        setData({
-            Folder_name: folderData.Folder_name,
-            Parent_id: folderData.Parent_id,
-            id_user: folderData.id_user,
-        });
-        setIsModalOpen(true); // Abre o modal
+    const handleEdit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (editingFolder) {
+            post(route('updateFolder', { id: editingFolder.id }), {
+                data: {
+                    Folder_name: data.Folder_name,
+                    Parent_id: data.Parent_id,
+                    id_user: data.id_user,
+                },
+                onSuccess: () => {
+                    setSuccessMessage('Pasta editada com sucesso!');
+                    toggleModal();
+                    setEditingFolder(null); // Reseta a pasta sendo editada
+                    reset(); // Limpa o formulário
+                    // Limpa a mensagem de sucesso e fecha o modal após 3 segundos
+                    setTimeout(() => {
+                        setSuccessMessage(null);
+                        setIsModalOpen(false);
+                    }, 3000);
+                },
+            });
+        }
     };
 
     return (
@@ -101,12 +119,13 @@ export default function Folder({ auth, folders }: PageProps) {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                         {/* Card */}
                         {folders.map((folder) => (
-                            <Card className="max-w-sm flex-1 relative">
+                            <Card className="max-w-sm flex-1 relative" key={folder.id}>
                                 {/* Dropdown de ações no canto superior direito */}
                                 <div className="flex justify-end px-4 pt-4">
                                     <Dropdown inline label="">
                                         <Dropdown.Item>
-                                            <a onClick={editModal}
+                                            <a
+                                                onClick={() => openEditModal(folder)} // Passa os dados da pasta para o modal
                                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >
                                                 Edit
