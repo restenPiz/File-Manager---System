@@ -1,5 +1,4 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-// import { PageProps } from "@/types";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { Alert, Card } from "flowbite-react";
 import { Modal, Button, Dropdown } from "flowbite-react";
@@ -22,7 +21,7 @@ export default function Folder({ auth, folders }: PageProps) {
     const editModal = () => setIsModalOpen(!isModalOpen);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    const { post, data, processing, errors, reset, setData } = useForm({
+    const { post, data, reset, setData } = useForm({
         Folder_name: "",
         id_user: auth.user.id,
         Parent_id: 1,
