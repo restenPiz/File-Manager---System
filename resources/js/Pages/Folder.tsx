@@ -49,10 +49,8 @@ export default function Folder({ auth, folders }: PageProps) {
 
     const openEditModal = (folder: Folder) => {
         setEditingFolder(folder);
-        setData('Folder_name', folder.Folder_name); // Preenche o campo de nome da pasta
-        setData('Parent_id', folder.Parent_id); // Preenche o campo de Parent_id
-        setData('id_user', auth.user.id); // Preenche o campo de id_user
-        setIsModalOpen(true); // Abre o modal
+        setData('Folder_name', folder.Folder_name);
+        setIsModalOpen(true); 
     };
 
     const handleEdit = (e: React.FormEvent) => {
@@ -70,7 +68,7 @@ export default function Folder({ auth, folders }: PageProps) {
                     toggleModal();
                     setEditingFolder(null); // Reseta a pasta sendo editada
                     reset(); // Limpa o formulário
-                    // Limpa a mensagem de sucesso e fecha o modal após 3 segundos
+
                     setTimeout(() => {
                         setSuccessMessage(null);
                         setIsModalOpen(false);
@@ -260,4 +258,8 @@ export default function Folder({ auth, folders }: PageProps) {
             </Modal>
         </AuthenticatedLayout>
     );
+}
+
+function setData(arg0: string, Folder_name: string) {
+    throw new Error("Function not implemented.");
 }
