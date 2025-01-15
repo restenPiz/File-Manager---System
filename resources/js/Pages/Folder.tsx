@@ -192,7 +192,7 @@ export default function Folder({ auth, folders }: PageProps) {
                                     <Progress
                                         className="bg-blue-950"
                                         color="blue"
-                                        progress={45}
+                                        progress={20}
                                         progressLabelPosition="inside"
                                         textLabel=""
                                         textLabelPosition="outside"
