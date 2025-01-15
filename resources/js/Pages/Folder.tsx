@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import { Alert, Card } from "flowbite-react";
+import { Alert, Card, Progress } from "flowbite-react";
 import { Modal, Button, Dropdown } from "flowbite-react";
 import { FormEventHandler, useState } from 'react';
 
@@ -184,9 +184,20 @@ export default function Folder({ auth, folders }: PageProps) {
                                             {folder.Folder_name}
                                         </Link>
                                     </h5>
-                                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                                    {/* <span className="text-sm text-gray-500 dark:text-gray-400">
                                         2 GB
-                                    </span>
+                                    </span> */}
+                                </div>
+                                <div>
+                                    <Progress
+                                        progress={45}
+                                        progressLabelPosition="inside"
+                                        textLabel=""
+                                        textLabelPosition="outside"
+                                        size="lg"
+                                        labelProgress
+                                        labelText
+                                    />
                                 </div>
                             </Card>
                         ))}
