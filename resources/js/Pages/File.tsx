@@ -2,7 +2,8 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import TableUser from "@/Components/TableUser";
 import { Head } from "@inertiajs/react";
-import { Checkbox, Table } from "flowbite-react";
+import { Checkbox, Table, Dropdown } from "flowbite-react";
+import { MdMoreVert } from 'react-icons/md';
 
 export default function File({ auth }: PageProps) {
     return (
@@ -40,7 +41,29 @@ export default function File({ auth }: PageProps) {
                                     </a>
                                 </Table.Cell>
                                 <Table.Cell>
+                                    {/* Ícone de três pontos (Menu de opções) */}
+                                    <Dropdown inline label={<MdMoreVert size={24} className="text-gray-600 dark:text-gray-200" />}>
 
+                                        {/* Itens do dropdown */}
+                                        <Dropdown.Item>
+                                            <a
+                                                href="#"
+                                                onClick={() => { /* Função para editar */ }}
+                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            >
+                                                Edit
+                                            </a>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item>
+                                            <a
+                                                href="#"
+                                                onClick={() => { /* Função para excluir */ }}
+                                                className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            >
+                                                Delete
+                                            </a>
+                                        </Dropdown.Item>
+                                    </Dropdown>
                                 </Table.Cell>
                             </Table.Row>
                         </Table.Body>
