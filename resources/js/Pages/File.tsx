@@ -1,9 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
-import TableUser from "@/Components/TableUser";
 import { Head } from "@inertiajs/react";
 import { Checkbox, Table, Dropdown } from "flowbite-react";
-import { MdMoreVert } from 'react-icons/md';
 
 export default function File({ auth }: PageProps) {
     return (
@@ -42,7 +40,7 @@ export default function File({ auth }: PageProps) {
                                 </Table.Cell>
                                 <Table.Cell>
                                     {/* Ícone de três pontos (Menu de opções) */}
-                                    <Dropdown inline label={<MdMoreVert size={24} className="text-gray-600 dark:text-gray-200" />}>
+                                    <Dropdown inline>
 
                                         {/* Itens do dropdown */}
                                         <Dropdown.Item>
