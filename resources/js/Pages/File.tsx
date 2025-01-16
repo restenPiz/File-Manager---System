@@ -4,35 +4,42 @@ import { Head, useForm } from "@inertiajs/react";
 import { Checkbox, Table, Dropdown, Button, Modal } from "flowbite-react";
 import { useState } from "react";
 
-export default function File({ auth }: PageProps) {
+export default function File({ auth, folderId }: PageProps) {
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
 
-    const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-    const [file, setFile] = useState(null);
-    const [fileSize, setFileSize] = useState("");
-
-    const { post, data, setData, reset } = useForm({
-        Path: "",
-        Quantity: "",
-        File_name: "",
+    const { post, setData, reset } = useForm({
+        Path: null,
+        Quantity: '',
+        File_name: '',
+        id_folder: folderId, // ID da pasta onde o arquivo será salvo
     });
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!selectedFile) {
+            alert('Por favor, selecione um arquivo.');
+            return;
+        }
+
+        setData('Path', selectedFile);
 
         post(route('storeFile'), {
             onSuccess: () => {
-                setSuccessMessage('File added successfully!');
+                setSuccessMessage('Arquivo adicionado com sucesso!');
                 setIsCreateModalOpen(false);
-                reset(); 
+                reset();
+                setSelectedFile(null);
                 setTimeout(() => {
                     setSuccessMessage(null);
                 }, 3000);
             },
         });
     };
+
 
     const handleBack = (e: React.FormEvent) => {
         e.preventDefault();
