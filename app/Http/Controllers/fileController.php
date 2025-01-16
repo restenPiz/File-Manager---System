@@ -22,10 +22,14 @@ class fileController extends Controller
         $file = new File();
 
         $file->File_name = $request->input('File_name');
-        $file->Path = $request->input('Path');
         $file->Quantity = $request->input('Quantity');
         $file->id_folder = $request->input('id_folder');
         $file->id_user = $request->input('id_user');
+
+        if ($request->hasFile('Path')) {
+            $filePath = $request->file('Path')->store('uploads/files', 'public');
+            $file->Path = $filePath;
+        }
 
         $file->save();
 
