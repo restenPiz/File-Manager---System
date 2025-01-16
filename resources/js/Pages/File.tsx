@@ -1,7 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Head } from "@inertiajs/react";
-import { Checkbox, Table, Dropdown } from "flowbite-react";
+import { Checkbox, Table, Dropdown, Button } from "flowbite-react";
 
 export default function File({ auth }: PageProps) {
     return (
@@ -14,10 +14,18 @@ export default function File({ auth }: PageProps) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="flex justify-between items-center mb-8">
+                        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                            File Manager
+                        </h2>
+                        <Button className="bg-blue-950">
+                            Upload File
+                        </Button>
+                    </div>
                     <Table hoverable>
                         <Table.Head>
                             <Table.HeadCell className="p-4">
-                                <Checkbox />
+
                             </Table.HeadCell>
                             <Table.HeadCell>File Name</Table.HeadCell>
                             <Table.HeadCell>Size</Table.HeadCell>
@@ -34,9 +42,7 @@ export default function File({ auth }: PageProps) {
                                 </Table.Cell>
                                 <Table.Cell>2gb</Table.Cell>
                                 <Table.Cell>
-                                    <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                        View
-                                    </a>
+                                    11-09-2024
                                 </Table.Cell>
                                 <Table.Cell>
                                     {/* Ícone de três pontos (Menu de opções) */}
