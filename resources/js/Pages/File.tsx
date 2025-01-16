@@ -17,7 +17,7 @@ export default function File({ auth, folderId }: PageProps) {
         id_folder: folderId, // ID da pasta onde o arquivo será salvo
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!selectedFile) {
@@ -29,7 +29,6 @@ export default function File({ auth, folderId }: PageProps) {
 
         post(route('storeFile'), {
             onSuccess: () => {
-                setSuccessMessage('Arquivo adicionado com sucesso!');
                 setIsCreateModalOpen(false);
                 reset();
                 setSelectedFile(null);
@@ -141,46 +140,34 @@ export default function File({ auth, folderId }: PageProps) {
                     </Table>
 
                     <Modal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}>
-                        <Modal.Header>Upload File</Modal.Header>
+                        <Modal.Header>Upload de Arquivo</Modal.Header>
                         <Modal.Body>
-                            <form onClick={handleSubmit}>
+                            <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
-                                    <div className="flex items-center justify-center w-full">
-                                        <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                                {/* Ícone de upload SVG */}
-                                                <svg
-                                                    className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                                                    aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 20 16"
-                                                >
-                                                    <path
-                                                        stroke="currentColor"
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth="2"
-                                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                                                    />
-                                                </svg>
-                                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                                    <span className="font-semibold">Click to upload</span> or drag and drop
-                                                </p>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                    SVG, PNG, JPG or GIF (MAX. 800x400px)
-                                                </p>
-                                            </div>
-                                            {/* Campo para selecionar o arquivo */}
-                                            <input
-                                                id="dropzone-file"
-                                                type="file"
-                                                className="hidden"
-                                            />
-                                        </label>
-                                    </div>
+                                    <input
+                                        type="file"
+                                        onChange={(e) => setSelectedFile(e.target.files[0])}
+                                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+                                    />
                                 </div>
-
+                                <div className="mb-4">
+                                    <input
+                                        type="text"
+                                        value={data.File_name}
+                                        onChange={(e) => setData('File_name', e.target.value)}
+                                        placeholder="Nome do Arquivo"
+                                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg"
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <input
+                                        type="number"
+                                        value={data.Quantity}
+                                        onChange={(e) => setData('Quantity', e.target.value)}
+                                        placeholder="Quantidade"
+                                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg"
+                                    />
+                                </div>
                                 <div className="flex justify-end">
                                     <Button type="submit" className="bg-blue-950">
                                         Upload
