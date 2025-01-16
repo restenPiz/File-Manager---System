@@ -12,6 +12,7 @@ class fileController extends Controller
     {
         $files = File::all();
 
+        //*Returning the component
         return Inertia::render('File', [
             'files' => $files,
         ]);

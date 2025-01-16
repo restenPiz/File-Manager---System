@@ -19,18 +19,6 @@ export default function File({ auth }: PageProps) {
         File_name: "",
     });
 
-    const handleFileChange = (e: React.FormEvent) => {
-        const selectedFile = e.target.files[0];
-        setFile(selectedFile);
-
-        // Calcula o tamanho do arquivo em uma unidade legível
-        if (selectedFile) {
-            const sizeInKB = (selectedFile.size / 1024).toFixed(2); // Tamanho em KB
-            const sizeInMB = (selectedFile.size / (1024 * 1024)).toFixed(2); // Tamanho em MB
-            setFileSize(`${sizeInMB} MB`); // Armazena o tamanho como MB
-        }
-    };
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -38,7 +26,7 @@ export default function File({ auth }: PageProps) {
             onSuccess: () => {
                 setSuccessMessage('File added successfully!');
                 setIsCreateModalOpen(false);
-                reset(); // Limpa o formulário
+                reset(); 
                 setTimeout(() => {
                     setSuccessMessage(null);
                 }, 3000);
