@@ -9,7 +9,7 @@ class fileController extends Controller
 {
     public function index()
     {
-        return to_route('File');
+        return to_route('file');
     }
     public function upload(Request $request)
     {
@@ -30,5 +30,7 @@ class fileController extends Controller
         $file = File::findOrFail($id);
 
         $file->delete();
+
+        return to_route('file');
     }
 }
