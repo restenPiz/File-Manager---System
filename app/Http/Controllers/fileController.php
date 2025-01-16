@@ -21,7 +21,7 @@ class fileController extends Controller
     {
         $file = new File();
 
-        $file->File_name = $request->input('File_name');
+        $file->File_name = $request->file('Path')->getClientOriginalName();
         $file->Quantity = $request->input('Quantity');
         $file->id_folder = $request->input('id_folder');
         $file->id_user = $request->input('id_user');
