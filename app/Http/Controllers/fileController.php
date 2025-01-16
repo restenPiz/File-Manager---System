@@ -19,6 +19,7 @@ class fileController extends Controller
         $file->Path = $request->input('Path');
         $file->Quantity = $request->input('Quantity');
         $file->id_folder = $request->input('id_folder');
+        $file->id_user = $request->input('id_user');
 
         $file->save();
 
