@@ -36,8 +36,6 @@ export default function File({ auth }: PageProps) {
 
     const handleBack = (e: React.FormEvent) => {
         e.preventDefault();
-
-        post(route('file'));
     };
 
     return (
