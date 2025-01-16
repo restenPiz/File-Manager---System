@@ -11,7 +11,7 @@ class fileController extends Controller
     {
         return to_route('File');
     }
-    public function store(Request $request)
+    public function upload(Request $request)
     {
         $file = new File();
 
@@ -23,5 +23,11 @@ class fileController extends Controller
         $file->save();
 
         return to_route('file');
+    }
+    public function delete($id)
+    {
+        $file = File::findOrFail($id);
+
+        $file->delete();
     }
 }

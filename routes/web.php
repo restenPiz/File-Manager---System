@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\fileController;
 use App\Http\Controllers\folderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -27,8 +28,6 @@ Route::middleware('auth')->group(function () {
 });
 
 //*Start with the main routes
-// Route::inertia('/folders', 'Folder')->name('folder');
-Route::inertia('/file', 'File')->name('file');
 Route::inertia('/users', 'User')->name('user');
 Route::inertia('/rolesandpermissions', 'RolesPermissions')->name('roles');
 Route::inertia('/settings', 'Settings')->name('settings');
@@ -39,4 +38,8 @@ Route::post('/storeFolder', [folderController::class, 'store'])->name('storeFold
 Route::post('/updateFolder/{id}', [folderController::class, 'update'])->name('updateFolder');
 Route::post('/deleteFolder/{id}', [folderController::class, 'delete'])->name('deleteFolder');
 
-require __DIR__.'/auth.php';
+Route::get('/file', [fileController::class, 'index'])->name('file');
+Route::post('/storefile', [fileController::class, 'store'])->name('storefile');
+Route::post('/deletefile/{id}', [fileController::class, 'delete'])->name('deletefile');
+
+require __DIR__ . '/auth.php';
