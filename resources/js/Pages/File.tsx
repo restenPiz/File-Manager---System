@@ -46,6 +46,12 @@ export default function File({ auth }: PageProps) {
         });
     };
 
+    const handleBack = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        get(route('file'));
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -60,13 +66,22 @@ export default function File({ auth }: PageProps) {
                         <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
                             File Manager
                         </h2>
-                        <Button className="bg-blue-950" onClick={() => setIsCreateModalOpen(true)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8l-8 8-8-8" />
-                            </svg>
-                            Upload File
-                        </Button>
+                        <div className="flex space-x-4">
+                            <Button className="bg-green-800 flex items-center" onClick={handleBack}>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                                </svg>
+                                Voltar
+                            </Button>
+                            <Button className="bg-blue-950 flex items-center" onClick={() => setIsCreateModalOpen(true)}>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8l-8 8-8-8" />
+                                </svg>
+                                Upload File
+                            </Button>
+                        </div>
                     </div>
+
                     <Table hoverable>
                         <Table.Head>
                             <Table.HeadCell className="p-4">
@@ -82,8 +97,22 @@ export default function File({ auth }: PageProps) {
                                 <Table.Cell className="p-4">
                                     <Checkbox />
                                 </Table.Cell>
-                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    {'api-keys.html"'}
+                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center">
+                                    <svg
+                                        className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M10 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-6l-2-2h-6a2 2 0 00-2 2v0z"
+                                        />
+                                    </svg>
+                                    {'api-keys.html'}
                                 </Table.Cell>
                                 <Table.Cell>2gb</Table.Cell>
                                 <Table.Cell>

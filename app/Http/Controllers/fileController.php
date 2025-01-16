@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class fileController extends Controller
 {
     public function index()
     {
-        return to_route('file');
+        $files = File::all();
+
+        return Inertia::render('File', [
+            'files' => $files,
+        ]);
     }
     public function upload(Request $request)
     {
