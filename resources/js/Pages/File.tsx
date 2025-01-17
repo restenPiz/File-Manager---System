@@ -34,7 +34,7 @@ export default function File({ auth, folderId }: PageProps) {
 
         post(route('storefile'), {
             onSuccess: () => {
-                setSuccessMessage('Arquivo enviado com sucesso!');
+                setSuccessMessage('File uploaded successfuly!');
                 setIsCreateModalOpen(false);
                 reset();
                 setSelectedFile(null);
@@ -77,6 +77,19 @@ export default function File({ auth, folderId }: PageProps) {
                                 Upload File
                             </Button>
                         </div>
+                    </div>
+
+                    <div className="flex">
+                        {successMessage && (
+                            <div className="z-50">
+                                <div
+                                    className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+                                    role="alert"
+                                >
+                                    <span className="font-medium">Sucesso!</span> {successMessage}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <Table hoverable>

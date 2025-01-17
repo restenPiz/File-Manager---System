@@ -33,7 +33,7 @@ class fileController extends Controller
 
         $file->save();
 
-        return to_route('file');
+        return to_route('file', ['id' => $file->id_folder]);
     }
     public function delete($id)
     {
