@@ -134,15 +134,6 @@ export default function File({ auth, folderId, files }: PageProps) {
                                             <Dropdown.Item>
                                                 <a
                                                     href="#"
-                                                    onClick={() => { /* Função para editar */ }}
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                >
-                                                    Edit
-                                                </a>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item>
-                                                <a
-                                                    href="#"
                                                     onClick={() => { /* Função para excluir */ }}
                                                     className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                                 >
