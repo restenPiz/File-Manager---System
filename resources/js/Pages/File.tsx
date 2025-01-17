@@ -1,7 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Head, Link, useForm } from "@inertiajs/react";
-import { Checkbox, Table, Dropdown, Button, Modal } from "flowbite-react";
+import { Checkbox, Table, Dropdown, Button, Modal, Progress } from "flowbite-react";
 import { useState } from "react";
 import { FaEnvelope } from 'react-icons/fa'; 
 
@@ -199,6 +199,7 @@ export default function File({ auth, folderId, files }: PageProps) {
                                         </Table.Row>
                                     ))
                             )}
+
                         </Table.Body>
                     </Table>
 
