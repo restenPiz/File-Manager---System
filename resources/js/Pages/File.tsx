@@ -4,7 +4,7 @@ import { Head, useForm } from "@inertiajs/react";
 import { Checkbox, Table, Dropdown, Button, Modal } from "flowbite-react";
 import { useState } from "react";
 
-export default function File({ auth, folderId }: PageProps) {
+export default function File({ auth, folderId, files }: PageProps) {
     console.log('Folder ID:', folderId); 
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -94,66 +94,65 @@ export default function File({ auth, folderId }: PageProps) {
 
                     <Table hoverable>
                         <Table.Head>
-                            <Table.HeadCell className="p-4">
-
-                            </Table.HeadCell>
+                            <Table.HeadCell className="p-4"></Table.HeadCell>
                             <Table.HeadCell>File Name</Table.HeadCell>
                             <Table.HeadCell>Size</Table.HeadCell>
                             <Table.HeadCell>Last Modified</Table.HeadCell>
                             <Table.HeadCell></Table.HeadCell>
                         </Table.Head>
                         <Table.Body className="divide-y">
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="p-4">
-                                    <Checkbox />
-                                </Table.Cell>
-                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center">
-                                    <svg
-                                        className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M10 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-6l-2-2h-6a2 2 0 00-2 2v0z"
-                                        />
-                                    </svg>
-                                    {'api-keys.html'}
-                                </Table.Cell>
-                                <Table.Cell>2gb</Table.Cell>
-                                <Table.Cell>
-                                    11-09-2024
-                                </Table.Cell>
-                                <Table.Cell>
-                                    {/* Ícone de três pontos (Menu de opções) */}
-                                    <Dropdown inline>
-
-                                        {/* Itens do dropdown */}
-                                        <Dropdown.Item>
-                                            <a
-                                                href="#"
-                                                onClick={() => { /* Função para editar */ }}
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            >
-                                                Edit
-                                            </a>
-                                        </Dropdown.Item>
-                                        <Dropdown.Item>
-                                            <a
-                                                href="#"
-                                                onClick={() => { /* Função para excluir */ }}
-                                                className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            >
-                                                Delete
-                                            </a>
-                                        </Dropdown.Item>
-                                    </Dropdown>
-                                </Table.Cell>
-                            </Table.Row>
+                            {files.map((file) => (
+                                <Table.Row key={file.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="p-4">
+                                        <Checkbox />
+                                    </Table.Cell>
+                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center">
+                                        <svg
+                                            className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M10 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-6l-2-2h-6a2 2 0 00-2 2v0z"
+                                            />
+                                        </svg>
+                                        {file.File_name}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {file.Quantity}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {new Date(file.created_at).toLocaleDateString()}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        <Dropdown inline>
+                                            <Dropdown.Item>
+                                                <a
+                                                    href="#"
+                                                    onClick={() => { /* Função para editar */ }}
+                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    Edit
+                                                </a>
+                                            </Dropdown.Item>
+                                            <Dropdown.Item>
+                                                <a
+                                                    href="#"
+                                                    onClick={() => { /* Função para excluir */ }}
+                                                    className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    Delete
+                                                </a>
+                                            </Dropdown.Item>
+                                        </Dropdown>
+                                    </Table.Cell>
+                                </Table.Row>
+                            ))}
                         </Table.Body>
                     </Table>
 
