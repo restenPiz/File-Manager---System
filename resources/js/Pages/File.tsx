@@ -149,6 +149,24 @@ export default function File({ auth, folderId, files }: PageProps) {
                                                     Delete
                                                 </a>
                                             </Dropdown.Item>
+                                            <Dropdown.Item>
+                                                <a
+                                                    href="#"
+                                                    onClick={() => { /* Função para editar */ }}
+                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    Dowloand File
+                                                </a>
+                                            </Dropdown.Item>
+                                            <Dropdown.Item>
+                                                <a
+                                                    href="#"
+                                                    onClick={() => { /* Função para editar */ }}
+                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    Share
+                                                </a>
+                                            </Dropdown.Item>
                                         </Dropdown>
                                     </Table.Cell>
                                 </Table.Row>
