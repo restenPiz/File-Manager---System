@@ -20,11 +20,6 @@ export default function File({ auth, folderId }: PageProps) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!selectedFile) {
-            alert('Por favor, selecione um arquivo.');
-            return;
-        }
-
         setData('Path', selectedFile);
 
         post(route('storeFile'), {
