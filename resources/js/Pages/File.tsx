@@ -20,14 +20,14 @@ export default function File({ auth, folderId, files }: PageProps) {
         Quantity: '',
         File_name: '',
         id_folder: folderId,
-        id_user: auth.user.id, // Puxando o ID do usuário autenticado
+        id_user: auth.user.id, 
     });
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             setSelectedFile(file);
-            setData('Quantity', (file.size / (1024 * 1024)).toFixed(2)); // Tamanho do arquivo em MB
+            setData('Quantity', (file.size / (1024 * 1024)).toFixed(2)); 
         }
     };
 
@@ -121,67 +121,56 @@ export default function File({ auth, folderId, files }: PageProps) {
                             <Table.HeadCell></Table.HeadCell>
                         </Table.Head>
                         <Table.Body className="divide-y">
-                            {files.map((file) => (
-                                <Table.Row key={file.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="p-4">
-                                        <Checkbox />
-                                    </Table.Cell>
-                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center">
-                                        <svg
-                                            className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M10 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-6l-2-2h-6a2 2 0 00-2 2v0z"
-                                            />
-                                        </svg>
-                                        {file.File_name}
-                                    </Table.Cell>
-                                    <Table.Cell>
-                                        {file.Quantity}
-                                    </Table.Cell>
-                                    <Table.Cell>
-                                        {new Date(file.created_at).toLocaleDateString()}
-                                    </Table.Cell>
-                                    <Table.Cell>
-                                        <Dropdown inline>
-                                            <Dropdown.Item>
-                                                <a
-                                                    href="#"
-                                                    onClick={() => openDeleteModal(file.id)}
-                                                    className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                >
-                                                    Delete
-                                                </a>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item>
-                                                <a
-                                                    href="#"
-                                                    onClick={() => { /* Função para editar */ }}
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                >
-                                                    Dowloand File
-                                                </a>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item>
-                                                <a
-                                                    href="#"
-                                                    onClick={() => { /* Função para editar */ }}
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                >
-                                                    Share
-                                                </a>
-                                            </Dropdown.Item>
-                                        </Dropdown>
+                            {files.length === 0 ? (
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell colSpan={5} className="text-center text-gray-500">
+                                        No files available
                                     </Table.Cell>
                                 </Table.Row>
-                            ))}
+                            ) : (
+                                files.map((file) => (
+                                    <Table.Row key={file.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                        <Table.Cell className="p-4">
+                                            <Checkbox />
+                                        </Table.Cell>
+                                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center">
+                                            <svg
+                                                className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M10 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-6l-2-2h-6a2 2 0 00-2 2v0z"
+                                                />
+                                            </svg>
+                                            {file.File_name}
+                                        </Table.Cell>
+                                        <Table.Cell>{(file.Quantity / (1024 * 1024)).toFixed(2)} MB</Table.Cell>
+                                        <Table.Cell>
+                                            {new Date(file.updated_at).toLocaleDateString()}
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                            <Dropdown inline>
+                                                <Dropdown.Item>
+                                                    <a href="#" onClick={() => { /* Função para editar */ }} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                        Edit
+                                                    </a>
+                                                </Dropdown.Item>
+                                                <Dropdown.Item>
+                                                    <a href="#" onClick={() => { /* Função para excluir */ }} className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                        Delete
+                                                    </a>
+                                                </Dropdown.Item>
+                                            </Dropdown>
+                                        </Table.Cell>
+                                    </Table.Row>
+                                ))
+                            )}
                         </Table.Body>
                     </Table>
 
