@@ -1,9 +1,20 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
-import { Head } from "@inertiajs/react";
-import { Button, Table } from "flowbite-react";
+import { Head, useForm } from "@inertiajs/react";
+import { Button, Modal, Table } from "flowbite-react";
+import { useState } from "react";
 
 export default function RolesPermissions({ auth }: PageProps) {
+
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const { post, data, reset, setData } = useForm({
+        Folder_name: "",
+        id_user: auth.user.id,
+        Parent_id: 1,
+    });
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -18,8 +29,8 @@ export default function RolesPermissions({ auth }: PageProps) {
                             Manage Roles and Permissions
                         </h2>
                         <div className="flex space-x-4"> {/* Botões alinhados horizontalmente */}
-                            <Button className="bg-blue-950">Add a new Role</Button>
-                            <Button className="bg-blue-950">Add a new Permission</Button>
+                            <Button className="bg-blue-950" onClick={() => setIsCreateModalOpen(true)}>Add a new Role</Button>
+                            <Button className="bg-blue-950" onClick={() => setIsModalOpen(true)}>Add a new Permission</Button>
                         </div>
                     </div>
 
@@ -76,6 +87,75 @@ export default function RolesPermissions({ auth }: PageProps) {
                             </Table>
                         </div>
                     </div>
+
+                    {/*Start with modal page*/}
+                    <Modal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}>
+                        <Modal.Header>Add a New Role</Modal.Header>
+                        <Modal.Body>
+                            <form>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">
+                                        Role Name
+                                    </label>
+                                    <input
+                                        name="name"
+                                        value={data.Folder_name}
+                                        onChange={(e) => setData('Folder_name', e.target.value)}
+                                        type="text"
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Enter Role Name"
+                                    />
+                                    <input
+                                        type="hidden"
+                                        name="display_name"
+                                    />
+                                    <input
+                                        type="hidden"
+                                        name="description"
+                                    />
+                                </div>
+                                <div className="flex justify-end">
+                                    <Button type="submit" className="bg-blue-950">
+                                        Create
+                                    </Button>
+                                </div>
+                            </form>
+                        </Modal.Body>
+                    </Modal>
+
+                    <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                        <Modal.Header>Add a New Permission</Modal.Header>
+                        <Modal.Body>
+                            <form>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">
+                                        Permission Name
+                                    </label>
+                                    <input
+                                        name="name"
+                                        value={data.Folder_name}
+                                        onChange={(e) => setData('Folder_name', e.target.value)}
+                                        type="text"
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Enter Role Name"
+                                    />
+                                    <input
+                                        type="hidden"
+                                        name="display_name"
+                                    />
+                                    <input
+                                        type="hidden"
+                                        name="description"
+                                    />
+                                </div>
+                                <div className="flex justify-end">
+                                    <Button type="submit" className="bg-blue-950">
+                                        Create
+                                    </Button>
+                                </div>
+                            </form>
+                        </Modal.Body>
+                    </Modal>
                 </div>
             </div>
         </AuthenticatedLayout>
