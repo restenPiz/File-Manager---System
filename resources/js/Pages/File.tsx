@@ -15,6 +15,7 @@ export default function File({ auth, folderId, files }: PageProps) {
     const toggleShareModal = () => setIsShareModalOpen(!isShareModalOpen);
     const [deletingFileId, setDeletingFileId] = useState<number | null>(null);
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+    const [shareFileId, setShareFileId] = useState<number | null>(null);
 
     const { post, data, setData, reset } = useForm({
         Path: '',
@@ -37,7 +38,8 @@ export default function File({ auth, folderId, files }: PageProps) {
         setIsDeleteModalOpen(true); 
     };
 
-    const openShareModal = () => {
+    const openShareModal = (id: number) => {
+        setShareFileId(id);
         setIsShareModalOpen(true); 
     };
 
@@ -186,7 +188,7 @@ export default function File({ auth, folderId, files }: PageProps) {
                                                     <Dropdown.Item>
                                                         <a
                                                             href="#"
-                                                            onClick={() => openShareModal()}
+                                                            onClick={() => openShareModal(file.id)}
                                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Share
