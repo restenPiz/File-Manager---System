@@ -26,6 +26,7 @@ class fileController extends Controller
         $file->id_folder = $request->input('id_folder');
         $file->id_user = $request->input('id_user');
 
+        //*Start with the file store
         if ($request->hasFile('Path')) {
             $filePath = $request->file('Path')->store('uploads/files', 'public');
             $file->Path = $filePath;
