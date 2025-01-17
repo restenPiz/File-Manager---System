@@ -57,7 +57,7 @@ export default function File({ auth, folderId, files }: PageProps) {
         if (deletingFileId !== null) {
             post(route('deleteFile', { id: deletingFileId }), {
                 onSuccess: () => {
-                    setSuccessMessage('Folder deleted successfully!');
+                    setSuccessMessage('File deleted successfully!');
                     setIsDeleteModalOpen(false);
                     setDeletingFileId(null);
                     setTimeout(() => {
@@ -109,7 +109,7 @@ export default function File({ auth, folderId, files }: PageProps) {
                                     className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
                                     role="alert"
                                 >
-                                    <span className="font-medium">Sucesso!</span> {successMessage}
+                                    <span className="font-medium">Success!</span> {successMessage}
                                 </div>
                             </div>
                         )}

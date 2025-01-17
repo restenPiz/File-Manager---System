@@ -41,6 +41,6 @@ class fileController extends Controller
 
         $file->delete();
 
-        return to_route('file');
+        return to_route('file', ['id' => $file->id_folder]);
     }
 }
