@@ -156,7 +156,11 @@ export default function File({ auth, folderId, files }: PageProps) {
                                                 {file.Quantity}
                                             </Table.Cell>
                                             <Table.Cell>
-                                                {new Date(file.created_at).toLocaleDateString()}
+                                                {new Date(file.created_at).toLocaleDateString('pt-br', {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                })}
                                             </Table.Cell>
                                             <Table.Cell>
                                                 <Dropdown inline>
