@@ -3,6 +3,7 @@ import { PageProps } from "@/types";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { Checkbox, Table, Dropdown, Button, Modal } from "flowbite-react";
 import { useState } from "react";
+import { FaEnvelope } from 'react-icons/fa'; 
 
 export default function File({ auth, folderId, files }: PageProps) {
 
@@ -11,6 +12,7 @@ export default function File({ auth, folderId, files }: PageProps) {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const toggleDeleteModal = () => setIsDeleteModalOpen(!isDeleteModalOpen);
+    const toggleShareModal = () => setIsShareModalOpen(!isShareModalOpen);
     const [deletingFileId, setDeletingFileId] = useState<number | null>(null);
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
@@ -294,18 +296,22 @@ export default function File({ auth, folderId, files }: PageProps) {
                     </Modal>
 
                     {/*Share Modal*/}
-                    <Modal show={isShareModalOpen} onClose={toggleDeleteModal}>
-                        <Modal.Header>Confirm Deletion</Modal.Header>
-                        <Modal.Body>
-                            <p>Are you sure you want to delete this file?</p>
-                        </Modal.Body>
+                    <Modal show={isShareModalOpen} onClose={toggleShareModal}>
+                        <Modal.Header>Compartilhar Ficheiro</Modal.Header>
+
                         <Modal.Footer>
-                            <Button color="gray" onClick={toggleDeleteModal}>
-                                Cancel
+                            <Button
+                                as="a"
+                                href={files && files.File_name ? `mailto:?subject=Compartilhar Arquivo&body=Eu gostaria de compartilhar este arquivo com você: ${files.File_name}` : "#"}
+                                className="bg-red-600 text-white flex items-center"
+                                disabled={!files || !files.File_name} // Desabilita o botão se não houver arquivo ou nome de arquivo
+                            >
+                                <FaEnvelope className="mr-2" />
+                                Enviar por Gmail
                             </Button>
-                            <Button className="bg-red-700 text-gray-100" color="failure" onClick={handleDelete}>
-                                Confirm
-                            </Button>
+
+                            {/* Botão para abrir o Gmail */}
+
                         </Modal.Footer>
                     </Modal>
                 </div>
