@@ -157,7 +157,7 @@ export default function File({ auth, folderId, files }: PageProps) {
                                             <Dropdown.Item>
                                                 <a
                                                     href="#"
-                                                    onClick={() => { /* Função para excluir */ }}
+                                                    onClick={() => openDeleteModal(file.id)}
                                                     className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                                 >
                                                     Delete
@@ -269,6 +269,22 @@ export default function File({ auth, folderId, files }: PageProps) {
                                 </div>
                             </form>
                         </Modal.Body>
+                    </Modal>
+
+                    {/*Delete Modal*/}
+                    <Modal show={isDeleteModalOpen} onClose={toggleDeleteModal}>
+                        <Modal.Header>Confirm Deletion</Modal.Header>
+                        <Modal.Body>
+                            <p>Are you sure you want to delete this file?</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button color="gray" onClick={toggleDeleteModal}>
+                                Cancel
+                            </Button>
+                            <Button className="bg-red-700 text-gray-100" color="failure" onClick={handleDelete}>
+                                Confirm
+                            </Button>
+                        </Modal.Footer>
                     </Modal>
                 </div>
             </div>
