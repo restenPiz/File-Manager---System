@@ -38,7 +38,7 @@ Route::post('/storeFolder', [folderController::class, 'store'])->name('storeFold
 Route::post('/updateFolder/{id}', [folderController::class, 'update'])->name('updateFolder');
 Route::post('/deleteFolder/{id}', [folderController::class, 'delete'])->name('deleteFolder');
 
-Route::get('/file', [fileController::class, 'index'])->name('file');
+Route::get('/file/{id}', [fileController::class, 'index'])->name('file');
 Route::post('/storefile', [fileController::class, 'store'])->name('storefile');
 Route::post('/deletefile/{id}', [fileController::class, 'delete'])->name('deletefile');
 

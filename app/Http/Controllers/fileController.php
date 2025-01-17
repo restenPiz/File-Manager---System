@@ -8,9 +8,9 @@ use Inertia\Inertia;
 
 class fileController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $files = File::all();
+        $files = File::where('id_folder', $id)->get();
 
         //*Returning the component
         return Inertia::render('File', [

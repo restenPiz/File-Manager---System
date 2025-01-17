@@ -14,7 +14,7 @@ export default function File({ auth, folderId }: PageProps) {
         Path: null,
         Quantity: '',
         File_name: '',
-        id_folder: folderId, // ID da pasta onde o arquivo será salvo
+        id_folder: folderId, 
     });
 
     const handleSubmit = (e: React.FormEvent) => {
