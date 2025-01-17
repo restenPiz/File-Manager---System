@@ -146,11 +146,12 @@ export default function File({ auth, folderId, files }: PageProps) {
                                                         d="M10 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-6l-2-2h-6a2 2 0 00-2 2v0z"
                                                     />
                                                 </svg>
-                                                <Link href={asset('storage/' + file.Path)}
-                                                    download={file.File_name}
-                                                    className="text-gray-900 hover:text-blue-500 transition-colors duration-300">
+                                                <a
+                                                    href={`/storage/${file.Path}`}
+                                                    className="text-gray-900 hover:text-blue-500 transition-colors duration-300"
+                                                    download={file.File_name}>
                                                     {file.File_name}
-                                                </Link>
+                                                </a>
                                             </Table.Cell>
                                             <Table.Cell>
                                                 {file.Quantity}
