@@ -3,6 +3,7 @@ import { PageProps } from "@/types";
 import { Head, useForm } from "@inertiajs/react";
 import { Checkbox, Table, Dropdown, Button, Modal } from "flowbite-react";
 import { useState } from "react";
+import { Inertia } from '@inertiajs/inertia';
 
 export default function File({ auth, folderId, files }: PageProps) {
     console.log('Folder ID:', folderId); 
@@ -68,8 +69,9 @@ export default function File({ auth, folderId, files }: PageProps) {
         }
     };
 
-    const handleBack = (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleBack = () => {
+        // Usando a função Inertia.visit para redirecionar para a página de pastas
+        Inertia.get(route('folder.index')); // Ajuste a rota se necessário
     };
 
     return (
