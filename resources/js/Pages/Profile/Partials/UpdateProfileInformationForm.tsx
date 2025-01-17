@@ -22,7 +22,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     };
 
     return (
-        <section className={className}>
+        <section className="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <header>
                 <h2 className="text-lg font-medium text-gray-900">Profile Information</h2>
 
@@ -32,8 +32,8 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-                <div className="flex gap-4">
-                    <div className="flex-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
                         <InputLabel htmlFor="name" value="Name" />
 
                         <TextInput
@@ -49,7 +49,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         <InputError className="mt-2" message={errors.name} />
                     </div>
 
-                    <div className="flex-1">
+                    <div>
                         <InputLabel htmlFor="email" value="Email" />
 
                         <TextInput

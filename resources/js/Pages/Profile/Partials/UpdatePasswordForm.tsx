@@ -37,20 +37,19 @@ export default function UpdatePasswordForm({ className = '' }: { className?: str
     };
 
     return (
-        <section className={className}>
+        <section className="max-w-7xl mx-auto sm:px- lg:px-8">
             <header>
                 <h2 className="text-lg font-medium text-gray-900">Update Password</h2>
-
                 <p className="mt-1 text-sm text-gray-600">
                     Ensure your account is using a long, random password to stay secure.
                 </p>
             </header>
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6 w-full">
-                <div>
-                    <div>
+                <div className="flex space-x-6">
+                    {/* Current Password */}
+                    <div className="flex-1">
                         <InputLabel htmlFor="current_password" value="Current Password" />
-
                         <TextInput
                             id="current_password"
                             ref={currentPasswordInput}
@@ -60,42 +59,40 @@ export default function UpdatePasswordForm({ className = '' }: { className?: str
                             className="mt-1 block w-full"
                             autoComplete="current-password"
                         />
-
                         <InputError message={errors.current_password} className="mt-2" />
-                    </div><br></br>
+                    </div>
 
-                <div>
-                    <InputLabel htmlFor="password" value="New Password" />
+                    {/* New Password */}
+                    <div className="flex-1">
+                        <InputLabel htmlFor="password" value="New Password" />
+                        <TextInput
+                            id="password"
+                            ref={passwordInput}
+                            value={data.password}
+                            onChange={(e) => setData('password', e.target.value)}
+                            type="password"
+                            className="mt-1 block w-full"
+                            autoComplete="new-password"
+                        />
+                        <InputError message={errors.password} className="mt-2" />
+                    </div>
 
-                    <TextInput
-                        id="password"
-                        ref={passwordInput}
-                        value={data.password}
-                        onChange={(e) => setData('password', e.target.value)}
-                        type="password"
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                    />
+                    {/* Confirm Password */}
+                    <div className="flex-1">
+                        <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
+                        <TextInput
+                            id="password_confirmation"
+                            value={data.password_confirmation}
+                            onChange={(e) => setData('password_confirmation', e.target.value)}
+                            type="password"
+                            className="mt-1 block w-full"
+                            autoComplete="new-password"
+                        />
+                        <InputError message={errors.password_confirmation} className="mt-2" />
+                    </div>
+                </div>
 
-                    <InputError message={errors.password} className="mt-2" />
-                    </div><br></br>
-
-                <div>
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
-                        id="password_confirmation"
-                        value={data.password_confirmation}
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                        type="password"
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                    />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                    </div><br></br>
-
-                    <div className="mt-5 flex items-center gap-4">
+                <div className="mt-5 flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
 
                     <Transition
@@ -105,11 +102,11 @@ export default function UpdatePasswordForm({ className = '' }: { className?: str
                         leave="transition ease-in-out"
                         leaveTo="opacity-0"
                     >
-                            <p className=" text-sm text-gray-600">Saved.</p>
+                        <p className="text-sm text-gray-600">Saved.</p>
                     </Transition>
-                </div>
                 </div>
             </form>
         </section>
+
     );
 }
