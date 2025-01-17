@@ -3,8 +3,12 @@ import { PageProps } from "@/types";
 import { Head, useForm } from "@inertiajs/react";
 import { Checkbox, Table, Dropdown, Button, Modal } from "flowbite-react";
 import { useState } from "react";
+import { useLocation } from 'react-router-dom';
 
-export default function File({ auth, folderId }: PageProps) {
+export default function File({ auth }: PageProps) {
+    const location = useLocation();
+    const folderId = location.state?.folderId; // Captura o folderId passado no estado
+    console.log('Folder ID:', folderId);
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -29,7 +33,9 @@ export default function File({ auth, folderId }: PageProps) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        post(route('storeFile'), {
+        setData('id_folder', folderId);
+
+        post(route('storefile'), {
             onSuccess: () => {
                 setSuccessMessage('Arquivo enviado com sucesso!');
                 setIsCreateModalOpen(false);
@@ -204,18 +210,7 @@ export default function File({ auth, folderId }: PageProps) {
                                     readOnly
                                     className="hidden"
                                 />
-                                <input
-                                    name="id_folder"
-                                    value={new URLSearchParams(window.location.search).get("id")}
-                                    readOnly
-                                    className="hidden"
-                                />
-                                <input
-                                    name="Quantity"
-                                    value={data.Quantity}
-                                    readOnly
-                                    className="hidden"
-                                />
+                                <input name="id_folder" value={folderId} readOnly hidden />
 
                                 {/* Botão de Upload */}
                                 <div className="flex justify-end">

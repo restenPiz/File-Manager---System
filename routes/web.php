@@ -39,7 +39,7 @@ Route::post('/updateFolder/{id}', [folderController::class, 'update'])->name('up
 Route::post('/deleteFolder/{id}', [folderController::class, 'delete'])->name('deleteFolder');
 
 Route::get('/file/{id}', [fileController::class, 'index'])->name('file');
-Route::post('/storefile', [fileController::class, 'store'])->name('storefile');
+Route::post('/storefile', [fileController::class, 'upload'])->name('storefile');
 Route::post('/deletefile/{id}', [fileController::class, 'delete'])->name('deletefile');
 
 require __DIR__ . '/auth.php';
