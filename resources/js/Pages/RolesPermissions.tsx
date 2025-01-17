@@ -1,7 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Head } from "@inertiajs/react";
-import TableUser from "@/Components/TableUser";
 import { Button, Table } from "flowbite-react";
 
 export default function RolesPermissions({ auth }: PageProps) {
