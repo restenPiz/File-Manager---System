@@ -230,8 +230,8 @@ export default function File({ auth, folderId, files }: PageProps) {
                                 {/* Campo para Nome do Arquivo */}
                                 <div className="mb-4">
                                     <input
+                                        type="hidden"
                                         name="File_name"
-                                        type="text"
                                         onChange={(e) => setData("File_name", e.target.value)}
                                         placeholder="Nome do Arquivo"
                                         className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg"
