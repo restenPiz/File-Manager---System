@@ -191,7 +191,7 @@ export default function File({ auth, folderId, files }: PageProps) {
                     </Table>
 
                     <Modal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}>
-                        <Modal.Header>Upload de Arquivo</Modal.Header>
+                        <Modal.Header>File Upload</Modal.Header>
                         <Modal.Body>
                             <form onSubmit={handleSubmit}>
                                 {/* Campo para selecionar o arquivo */}
