@@ -32,11 +32,11 @@ export default function File({ auth, folderId, files }: PageProps) {
 
     const openDeleteModal = (id: number) => {
         setDeletingFileId(id);
-        setIsDeleteModalOpen(true); // Abre o modal de confirmação
+        setIsDeleteModalOpen(true); 
     };
 
     const openShareModal = () => {
-        setIsShareModalOpen(true); // Abre o modal de confirmação
+        setIsShareModalOpen(true); 
     };
 
     //*Inicio dos metodos de Requisicao
@@ -184,7 +184,7 @@ export default function File({ auth, folderId, files }: PageProps) {
                                                     <Dropdown.Item>
                                                         <a
                                                             href="#"
-                                                            onClick={() => { /* Função para editar */ }}
+                                                            onClick={() => openShareModal()}
                                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Share
