@@ -292,6 +292,22 @@ export default function File({ auth, folderId, files }: PageProps) {
                             </Button>
                         </Modal.Footer>
                     </Modal>
+
+                    {/*Share Modal*/}
+                    <Modal show={isShareModalOpen} onClose={toggleDeleteModal}>
+                        <Modal.Header>Confirm Deletion</Modal.Header>
+                        <Modal.Body>
+                            <p>Are you sure you want to delete this file?</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button color="gray" onClick={toggleDeleteModal}>
+                                Cancel
+                            </Button>
+                            <Button className="bg-red-700 text-gray-100" color="failure" onClick={handleDelete}>
+                                Confirm
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
             </div>
 
