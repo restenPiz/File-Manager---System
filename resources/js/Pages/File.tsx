@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import { Checkbox, Table, Dropdown, Button, Modal } from "flowbite-react";
 import { useState } from "react";
 import { Inertia } from '@inertiajs/inertia';
@@ -148,7 +148,9 @@ export default function File({ auth, folderId, files }: PageProps) {
                                                         d="M10 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-6l-2-2h-6a2 2 0 00-2 2v0z"
                                                     />
                                                 </svg>
-                                                {file.File_name}
+                                                <Link href="">
+                                                    {file.File_name}
+                                                </Link>
                                             </Table.Cell>
                                             <Table.Cell>
                                                 {file.Quantity}
