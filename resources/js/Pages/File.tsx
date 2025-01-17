@@ -192,8 +192,16 @@ export default function File({ auth, folderId }: PageProps) {
                                             onChange={(e) => {
                                                 const file = e.target.files?.[0];
                                                 if (file) {
+                                                    const fileSizeMB = file.size / (1024 * 1024);
+                                                    const maxSizeMB = 10;
+
+                                                    if (fileSizeMB > maxSizeMB) {
+                                                        alert(`O arquivo é muito grande! O tamanho máximo permitido é ${maxSizeMB}MB.`);
+                                                        return;
+                                                    }
+
                                                     setData("Path", file);
-                                                    setData("Quantity", `${(file.size / (1024 * 1024)).toFixed(2)} MB`);
+                                                    setData("Quantity", `${fileSizeMB.toFixed(2)} MB`);
                                                 }
                                             }}
                                             className="hidden"
