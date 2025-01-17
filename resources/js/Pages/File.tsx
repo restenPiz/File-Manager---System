@@ -3,10 +3,8 @@ import { PageProps } from "@/types";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { Checkbox, Table, Dropdown, Button, Modal } from "flowbite-react";
 import { useState } from "react";
-import { Inertia } from '@inertiajs/inertia';
 
 export default function File({ auth, folderId, files }: PageProps) {
-    console.log('Folder ID:', folderId); 
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -194,7 +192,6 @@ export default function File({ auth, folderId, files }: PageProps) {
                         <Modal.Header>File Upload</Modal.Header>
                         <Modal.Body>
                             <form onSubmit={handleSubmit}>
-                                {/* Campo para selecionar o arquivo */}
                                 <div className="flex items-center justify-center w-full">
                                     <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -243,7 +240,6 @@ export default function File({ auth, folderId, files }: PageProps) {
                                 </div>
                                 <br />
 
-                                {/* Campo para Nome do Arquivo */}
                                 <div className="mb-4">
                                     <input
                                         type="hidden"
@@ -254,7 +250,6 @@ export default function File({ auth, folderId, files }: PageProps) {
                                     />
                                 </div>
 
-                                {/* Campos com valores automáticos */}
                                 <input
                                     name="id_user"
                                     value={auth.user.id}
@@ -263,7 +258,6 @@ export default function File({ auth, folderId, files }: PageProps) {
                                 />
                                 <input name="id_folder" value={folderId} readOnly hidden />
 
-                                {/* Botão de Upload */}
                                 <div className="flex justify-end">
                                     <Button type="submit" className="bg-blue-950">
                                         Upload
