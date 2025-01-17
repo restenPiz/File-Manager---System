@@ -7,21 +7,31 @@ import { useState } from "react";
 export default function File({ auth, folderId }: PageProps) {
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [successMessage, setSuccessMessage] = useState(null);
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-    const { post, setData, reset } = useForm({
+    const { post, data, setData, reset } = useForm({
         Path: '',
         Quantity: '',
         File_name: '',
-        id_folder: folderId, 
+        id_folder: folderId,
+        id_user: auth.user.id, // Puxando o ID do usuário autenticado
     });
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setSelectedFile(file);
+            setData('Quantity', (file.size / (1024 * 1024)).toFixed(2)); // Tamanho do arquivo em MB
+        }
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         post(route('storeFile'), {
             onSuccess: () => {
+                setSuccessMessage('Arquivo enviado com sucesso!');
                 setIsCreateModalOpen(false);
                 reset();
                 setSelectedFile(null);
@@ -31,7 +41,6 @@ export default function File({ auth, folderId }: PageProps) {
             },
         });
     };
-
 
     const handleBack = (e: React.FormEvent) => {
         e.preventDefault();
