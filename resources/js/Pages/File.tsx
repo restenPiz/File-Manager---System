@@ -10,6 +10,9 @@ export default function File({ auth, folderId, files }: PageProps) {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const toggleDeleteModal = () => setIsDeleteModalOpen(!isDeleteModalOpen);
+    const [deletingFileId, setDeletingFileId] = useState<number | null>(null);
 
     const { post, data, setData, reset } = useForm({
         Path: '',
@@ -25,6 +28,11 @@ export default function File({ auth, folderId, files }: PageProps) {
             setSelectedFile(file);
             setData('Quantity', (file.size / (1024 * 1024)).toFixed(2)); // Tamanho do arquivo em MB
         }
+    };
+
+    const openDeleteModal = (id: number) => {
+        setDeletingFileId(id);
+        setIsDeleteModalOpen(true); // Abre o modal de confirmação
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -43,6 +51,21 @@ export default function File({ auth, folderId, files }: PageProps) {
                 }, 3000);
             },
         });
+    };
+
+    const handleDelete = () => {
+        if (deletingFileId !== null) {
+            post(route('deleteFile', { id: deletingFileId }), {
+                onSuccess: () => {
+                    setSuccessMessage('Folder deleted successfully!');
+                    setIsDeleteModalOpen(false);
+                    setDeletingFileId(null);
+                    setTimeout(() => {
+                        setSuccessMessage(null);
+                    }, 3000);
+                },
+            });
+        }
     };
 
     const handleBack = (e: React.FormEvent) => {
