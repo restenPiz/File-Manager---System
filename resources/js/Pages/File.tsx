@@ -110,6 +110,7 @@ export default function File({ auth, folderId, files }: PageProps) {
                         )}
                     </div>
 
+                    {/*Start with the table*/}
                     <Table hoverable>
                         <Table.Head>
                             <Table.HeadCell className="p-4"></Table.HeadCell>
