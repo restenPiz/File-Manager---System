@@ -12,6 +12,7 @@ export default function File({ auth, folderId, files }: PageProps) {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const toggleDeleteModal = () => setIsDeleteModalOpen(!isDeleteModalOpen);
     const [deletingFileId, setDeletingFileId] = useState<number | null>(null);
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
     const { post, data, setData, reset } = useForm({
         Path: '',
