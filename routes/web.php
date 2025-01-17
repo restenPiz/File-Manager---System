@@ -40,6 +40,6 @@ Route::post('/deleteFolder/{id}', [folderController::class, 'delete'])->name('de
 
 Route::get('/file/{id}', [fileController::class, 'index'])->name('file');
 Route::post('/storefile', [fileController::class, 'upload'])->name('storefile');
-Route::post('/deletefile/{id}', [fileController::class, 'delete'])->name('deletefile');
+Route::post('/deletefile/{id}', [fileController::class, 'delete'])->name('deleteFile');
 
 require __DIR__ . '/auth.php';
