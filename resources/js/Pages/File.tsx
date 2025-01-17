@@ -34,6 +34,7 @@ export default function File({ auth, folderId, files }: PageProps) {
         setIsDeleteModalOpen(true); // Abre o modal de confirmação
     };
 
+    //*Inicio dos metodos de Requisicao
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
