@@ -12,9 +12,9 @@ class fileController extends Controller
     {
         $files = File::where('id_folder', $id)->get();
 
-        //*Returning the component
         return Inertia::render('File', [
             'files' => $files,
+            'folderId' => $id,
         ]);
     }
     public function upload(Request $request)

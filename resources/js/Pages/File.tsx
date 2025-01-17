@@ -3,12 +3,9 @@ import { PageProps } from "@/types";
 import { Head, useForm } from "@inertiajs/react";
 import { Checkbox, Table, Dropdown, Button, Modal } from "flowbite-react";
 import { useState } from "react";
-import { useLocation } from 'react-router-dom';
 
-export default function File({ auth }: PageProps) {
-    const location = useLocation();
-    const folderId = location.state?.folderId; // Captura o folderId passado no estado
-    console.log('Folder ID:', folderId);
+export default function File({ auth, folderId }: PageProps) {
+    console.log('Folder ID:', folderId); 
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
