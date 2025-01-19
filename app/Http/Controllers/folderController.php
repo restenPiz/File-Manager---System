@@ -40,6 +40,7 @@ class folderController extends Controller
     }
     public function delete($id)
     {
+        //*Find the folder id
         $folder = Folder::findOrFail($id);
 
         $folder->delete();

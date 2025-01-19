@@ -58,6 +58,7 @@ export default function RolesPermissions({ auth }: PageProps) {
                                                 View
                                             </a>
                                         </Table.Cell>
+
                                     </Table.Row>
                                 </Table.Body>
                             </Table>
