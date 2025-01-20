@@ -78,7 +78,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
-                    <Button type="submit" gradientMonochrome="info" disabled={processing}>
+                    <Button type="submit" className="bg-blue-950 flex items-center" disabled={processing}>
                         Log in
                     </Button>
                 </div>
