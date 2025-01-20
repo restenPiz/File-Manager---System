@@ -124,7 +124,7 @@ export default function RolesPermissions({ permissions, auth }: PageProps) {
 
                                 <div className="flex justify-center">
                                     <Button type="submit" className="bg-blue-950">
-                                        Create
+                                        Create Role
                                     </Button>
                                 </div>
                             </form>
