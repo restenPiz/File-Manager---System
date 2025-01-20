@@ -3,20 +3,26 @@ import { PageProps } from "@/types";
 import { Head, useForm } from "@inertiajs/react";
 import { Button, Checkbox, Dropdown, Label, Modal, Table } from "flowbite-react";
 import { useState } from "react";
-import axios from "axios";
 
 export default function RolesPermissions({ roles, permissions, auth }: PageProps) {
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [deletingRoleId, setDeletingRoleId] = useState<number | null>(null);
     const toggleDeleteModal = () => setIsDeleteModalOpen(!isDeleteModalOpen);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [selectedRole, setSelectedRole] = useState<RoleType | null>(null);
 
     const { data, setData, post, processing, reset, errors } = useForm({
         name: "",
         permissions: [] as string[],
+    });
+
+    const [formData, setFormData] = useState({
+        name: "",
+        display_name: "",
+        description: "",
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +52,16 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                 console.error("Failed to add role.");
             },
         });
+    };
+
+    const handleEditClick = (role: RoleType) => {
+        setSelectedRole(role);
+        setFormData({
+            name: role.name,
+            display_name: role.display_name,
+            description: role.description,
+        });
+        setIsEditModalOpen(true);
     };
 
     const handleDelete = () => {
@@ -124,6 +140,7 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                                 <Dropdown inline>
                                                     <Dropdown.Item>
                                                         <a
+                                                            onClick={() => handleEditClick(role)}
                                                             href="#"
                                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
@@ -209,6 +226,60 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                             </Button>
                         </Modal.Footer>
                     </Modal>
+
+                    {isEditModalOpen && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
+                            <div className="bg-white rounded-lg shadow-lg p-6 w-1/3">
+                                <h2 className="text-lg font-medium text-gray-900">Edit Role</h2>
+                                <form onSubmit={handleSubmit} className="mt-4">
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium text-gray-700">Name</label>
+                                        <input
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            type="text"
+                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        />
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium text-gray-700">Display Name</label>
+                                        <input
+                                            name="display_name"
+                                            value={formData.display_name}
+                                            onChange={handleChange}
+                                            type="text"
+                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        />
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium text-gray-700">Description</label>
+                                        <textarea
+                                            name="description"
+                                            value={formData.description}
+                                            onChange={handleChange}
+                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        />
+                                    </div>
+                                    <div className="flex justify-end space-x-4">
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsEditModalOpen(false)}
+                                            className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                                        >
+                                            Save
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    )}
 
                 </div>
             </div>
