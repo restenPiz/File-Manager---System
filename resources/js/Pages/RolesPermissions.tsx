@@ -115,7 +115,7 @@ export default function RolesPermissions({ permissions, auth }: PageProps) {
                                     {permissions.map((permission, index) => (
                                         <div key={index} className="flex items-center space-x-2">
                                             <Checkbox id={`permission-${index}`} />
-                                            <Label htmlFor={`permission-${index}`}>{permission.display_name}</Label>
+                                            <Label htmlFor={`permission-${index}`}>{permission.name}</Label>
                                         </div>
                                     ))}
                                 </div>
