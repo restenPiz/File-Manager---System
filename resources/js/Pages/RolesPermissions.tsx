@@ -4,7 +4,7 @@ import { Head, useForm } from "@inertiajs/react";
 import { Button, Checkbox, Label, Modal, Table } from "flowbite-react";
 import { useState } from "react";
 
-export default function RolesPermissions({ auth }: PageProps) {
+export default function RolesPermissions({ permissions, auth }: PageProps) {
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -115,12 +115,14 @@ export default function RolesPermissions({ auth }: PageProps) {
                                         name="description"
                                     />
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <Checkbox id="accept" />
-                                    <Label htmlFor="accept" className="flex">
-                                        Permissions
-                                    </Label>
-                                </div>
+                                {permissions.map((permission) => (
+                                    <div className="flex items-center gap-2">
+                                        <Checkbox id="accept" />
+                                        <Label htmlFor="accept" className="flex">
+                                            {permission.display_name}
+                                        </Label>
+                                    </div>
+                                ))}
                                 <div className="flex justify-end">
                                     <Button type="submit" className="bg-blue-950">
                                         Create
