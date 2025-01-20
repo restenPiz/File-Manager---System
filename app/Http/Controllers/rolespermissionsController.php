@@ -12,9 +12,11 @@ class rolespermissionsController extends Controller
     public function index()
     {
         $permissions = Permission::all();
+        $roles = Role::all();
 
         return Inertia::render('RolesPermissions', [
             'permissions' => $permissions,
+            'roles' => $roles,
         ]);
     }
     public function store(Request $request)

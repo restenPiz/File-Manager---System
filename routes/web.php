@@ -43,5 +43,6 @@ Route::post('/storefile', [fileController::class, 'upload'])->name('storefile');
 Route::post('/deletefile/{id}', [fileController::class, 'delete'])->name('deleteFile');
 
 Route::get('/rolesandpermissions', [rolespermissionsController::class, 'index'])->name('roles');
+Route::post('/storeRoles', [rolespermissionsController::class, 'store'])->name('storeRole');
 
 require __DIR__ . '/auth.php';

@@ -3,17 +3,47 @@ import { PageProps } from "@/types";
 import { Head, useForm } from "@inertiajs/react";
 import { Button, Checkbox, Label, Modal, Table } from "flowbite-react";
 import { useState } from "react";
+import axios from "axios";
 
-export default function RolesPermissions({ permissions, auth }: PageProps) {
+export default function RolesPermissions({ roles, permissions, auth }: PageProps) {
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    const { post, data, reset, setData } = useForm({
-        Folder_name: "",
-        id_user: auth.user.id,
-        Parent_id: 1,
+    const { data, setData, post, processing, reset, errors } = useForm({
+        name: "",
+        permissions: [] as string[],
     });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value, checked } = e.target;
+
+        if (name === "permissions[]") {
+            setData("permissions", checked
+                ? [...data.permissions, value]
+                : data.permissions.filter((perm) => perm !== value)
+            );
+        } else {
+            setData(name, value);
+        }
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        post(route('storeRole'), {
+            onSuccess: () => {
+                setSuccessMessage("Role added successfully!");
+                setIsCreateModalOpen(false);
+                reset();
+                setTimeout(() => setSuccessMessage(null), 3000);
+            },
+            onError: () => {
+                console.error("Failed to add role.");
+            },
+        });
+    };
 
     return (
         <AuthenticatedLayout
@@ -34,9 +64,22 @@ export default function RolesPermissions({ permissions, auth }: PageProps) {
                         </div>
                     </div>
 
+                    <div className="flex">
+                        {successMessage && (
+                            <div className="z-50">
+                                <div
+                                    className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+                                    role="alert"
+                                >
+                                    <span className="font-medium">Sucesso!</span> {successMessage}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
                     {/* Containers para as tabelas lado a lado */}
                     <div className="flex space-x-8">
-                        <div className="w-1/2"> {/* Tabela 1 com largura de 50% */}
+                        <div className="w-full"> {/* Tabela 1 com largura de 50% */}
                             <Table hoverable>
                                 <Table.Head>
                                     <Table.HeadCell>Role Name</Table.HeadCell>
@@ -47,124 +90,72 @@ export default function RolesPermissions({ permissions, auth }: PageProps) {
                                     </Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body className="divide-y">
-                                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                            {'Apple MacBook Pro 17"'}
-                                        </Table.Cell>
-                                        <Table.Cell>Sliver</Table.Cell>
-                                        <Table.Cell>Laptop</Table.Cell>
-                                        <Table.Cell>
-                                            <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                                View
-                                            </a>
-                                        </Table.Cell>
-
-                                    </Table.Row>
+                                    {roles.map((role, index) => (
+                                        <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                {role.name}
+                                            </Table.Cell>
+                                            <Table.Cell>{role.display_name}</Table.Cell>
+                                            <Table.Cell>{role.description}</Table.Cell>
+                                            <Table.Cell>
+                                                <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                                                    View
+                                                </a>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    ))}
                                 </Table.Body>
                             </Table>
                         </div>
-                        {/* <div className="w-1/2">
-                            <Table hoverable>
-                                <Table.Head>
-                                    <Table.HeadCell>Role Name</Table.HeadCell>
-                                    <Table.HeadCell>Display Name</Table.HeadCell>
-                                    <Table.HeadCell>
-                                        <span className="sr-only">Edit</span>
-                                    </Table.HeadCell>
-                                </Table.Head>
-                                <Table.Body className="divide-y">
-                                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                            {'Apple MacBook Pro 17"'}
-                                        </Table.Cell>
-                                        <Table.Cell>Sliver</Table.Cell>
-                                        <Table.Cell>
-                                            <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                                View
-                                            </a>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                </Table.Body>
-                            </Table>
-                        </div> */}
                     </div>
 
                     {/*Start with modal page*/}
                     <Modal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}>
                         <Modal.Header>Add a New Role</Modal.Header>
                         <Modal.Body>
-                            <form>
-                                <div className="mb-4">
-                                    <label className="block text-sm font-medium text-gray-700">
-                                        Role Name
-                                    </label>
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700">Role Name</label>
                                     <input
-                                        name="name"
-                                        value={data.Folder_name}
-                                        onChange={(e) => setData('Folder_name', e.target.value)}
                                         type="text"
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        placeholder="Enter Role Name"
+                                        name="name"
+                                        value={data.name}
+                                        onChange={(e) => setData("name", e.target.value)}
+                                        className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     />
-                                    <input type="hidden" name="display_name" />
-                                    <input type="hidden" name="description" />
+                                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                                 </div>
 
-                                {/* Contêiner para os checkboxes */}
-                                <div className="grid grid-cols-3 gap-4 mb-4">
+                                <div className="grid grid-cols-3 gap-4">
                                     {permissions.map((permission, index) => (
-                                        <div key={index} className="flex flex-col items-center">
-                                            <Label htmlFor={`permission-${index}`} className="text-sm font-medium text-gray-700">
+                                        <div key={index}>
+                                            <label className="block text-sm font-medium text-gray-700">
                                                 {permission.display_name}
-                                            </Label>
-                                            <Checkbox id={`permission-${index}`} />
+                                            </label>
+                                            <input
+                                                type="checkbox"
+                                                name="permissions[]"
+                                                value={permission.name}
+                                                checked={data.permissions.includes(permission.name)}
+                                                onChange={handleChange}
+                                                className="mt-1"
+                                            />
                                         </div>
                                     ))}
-                                </div><br></br>
-
-                                <div className="flex justify-center">
-                                    <Button type="submit" className="bg-blue-950">
-                                        Create Role
-                                    </Button>
                                 </div>
+
+                                <button
+                                    type="submit"
+                                    disabled={processing}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+                                >
+                                    {processing ? "Saving..." : "Create"}
+                                </button>
                             </form>
 
                         </Modal.Body>
                     </Modal>
 
-                    <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                        <Modal.Header>Add a New Permission</Modal.Header>
-                        <Modal.Body>
-                            <form>
-                                <div className="mb-4">
-                                    <label className="block text-sm font-medium text-gray-700">
-                                        Permission Name
-                                    </label>
-                                    <input
-                                        name="name"
-                                        value={data.Folder_name}
-                                        onChange={(e) => setData('Folder_name', e.target.value)}
-                                        type="text"
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        placeholder="Enter Role Name"
-                                    />
-                                    <input
-                                        type="hidden"
-                                        name="display_name"
-                                    />
-                                    <input
-                                        type="hidden"
-                                        name="description"
-                                    />
-                                </div>
-                                <div className="flex justify-end">
-                                    <Button type="submit" className="bg-blue-950">
-                                        Create
-                                    </Button>
-                                </div>
-                            </form>
-                        </Modal.Body>
-                    </Modal>
                 </div>
             </div>
         </AuthenticatedLayout>
