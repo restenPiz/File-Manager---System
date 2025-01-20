@@ -111,16 +111,18 @@ export default function RolesPermissions({ permissions, auth }: PageProps) {
                                 </div>
 
                                 {/* Contêiner para os checkboxes */}
-                                <div className="flex flex-wrap gap-4 mb-4">
+                                <div className="grid grid-cols-3 gap-4 mb-4">
                                     {permissions.map((permission, index) => (
-                                        <div key={index} className="flex items-center space-x-2">
+                                        <div key={index} className="flex flex-col items-center">
+                                            <Label htmlFor={`permission-${index}`} className="text-sm font-medium text-gray-700">
+                                                {permission.display_name}
+                                            </Label>
                                             <Checkbox id={`permission-${index}`} />
-                                            <Label htmlFor={`permission-${index}`}>{permission.name}</Label>
                                         </div>
                                     ))}
-                                </div>
+                                </div><br></br>
 
-                                <div className="flex justify-end">
+                                <div className="flex justify-center">
                                     <Button type="submit" className="bg-blue-950">
                                         Create
                                     </Button>
