@@ -38,4 +38,12 @@ class rolespermissionsController extends Controller
 
         return to_route('roles');
     }
+    public function delete($id)
+    {
+        $roles = Role::findOrFail($id);
+
+        $roles->delete();
+
+        return to_route('roles');
+    }
 }
