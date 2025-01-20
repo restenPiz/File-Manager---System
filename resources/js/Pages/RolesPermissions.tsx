@@ -18,7 +18,7 @@ export default function RolesPermissions({ permissions, auth }: PageProps) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Manage Roles and Permissions</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Manage Roles</h2>}
         >
             <Head title="File Manager" />
 
@@ -26,7 +26,7 @@ export default function RolesPermissions({ permissions, auth }: PageProps) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center mb-8">
                         <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                            Manage Roles and Permissions
+                            Manage Roles
                         </h2>
                         <div className="flex space-x-4"> {/* Botões alinhados horizontalmente */}
                             <Button className="bg-blue-950" onClick={() => setIsCreateModalOpen(true)}>Add a new Role</Button>
