@@ -106,29 +106,27 @@ export default function RolesPermissions({ permissions, auth }: PageProps) {
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="Enter Role Name"
                                     />
-                                    <input
-                                        type="hidden"
-                                        name="display_name"
-                                    />
-                                    <input
-                                        type="hidden"
-                                        name="description"
-                                    />
+                                    <input type="hidden" name="display_name" />
+                                    <input type="hidden" name="description" />
                                 </div>
-                                {permissions.map((permission) => (
-                                    <div className="flex items-center gap-2">
-                                        <Checkbox id="accept" />
-                                        <Label htmlFor="accept" className="flex">
-                                            {permission.display_name}
-                                        </Label>
-                                    </div>
-                                ))}
+
+                                {/* Contêiner para os checkboxes */}
+                                <div className="flex flex-wrap gap-4 mb-4">
+                                    {permissions.map((permission, index) => (
+                                        <div key={index} className="flex items-center space-x-2">
+                                            <Checkbox id={`permission-${index}`} />
+                                            <Label htmlFor={`permission-${index}`}>{permission.display_name}</Label>
+                                        </div>
+                                    ))}
+                                </div>
+
                                 <div className="flex justify-end">
                                     <Button type="submit" className="bg-blue-950">
                                         Create
                                     </Button>
                                 </div>
                             </form>
+
                         </Modal.Body>
                     </Modal>
 
