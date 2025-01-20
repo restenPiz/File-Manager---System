@@ -3,6 +3,7 @@
 use App\Http\Controllers\fileController;
 use App\Http\Controllers\folderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\rolespermissionsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,7 +30,6 @@ Route::middleware('auth')->group(function () {
 
 //*Start with the main routes
 Route::inertia('/users', 'User')->name('user');
-Route::inertia('/rolesandpermissions', 'RolesPermissions')->name('roles');
 Route::inertia('/settings', 'Settings')->name('settings');
 
 //*Start with the Requests methods
@@ -41,5 +41,7 @@ Route::post('/deleteFolder/{id}', [folderController::class, 'delete'])->name('de
 Route::get('/file/{id}', [fileController::class, 'index'])->name('file');
 Route::post('/storefile', [fileController::class, 'upload'])->name('storefile');
 Route::post('/deletefile/{id}', [fileController::class, 'delete'])->name('deleteFile');
+
+Route::get('/rolesandpermissions', [rolespermissionsController::class, 'index'])->name('roles');
 
 require __DIR__ . '/auth.php';
