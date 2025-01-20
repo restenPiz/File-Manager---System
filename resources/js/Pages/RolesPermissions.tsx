@@ -1,7 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Head, useForm } from "@inertiajs/react";
-import { Button, Modal, Table } from "flowbite-react";
+import { Button, Checkbox, Label, Modal, Table } from "flowbite-react";
 import { useState } from "react";
 
 export default function RolesPermissions({ auth }: PageProps) {
@@ -30,7 +30,7 @@ export default function RolesPermissions({ auth }: PageProps) {
                         </h2>
                         <div className="flex space-x-4"> {/* Botões alinhados horizontalmente */}
                             <Button className="bg-blue-950" onClick={() => setIsCreateModalOpen(true)}>Add a new Role</Button>
-                            <Button className="bg-blue-950" onClick={() => setIsModalOpen(true)}>Add a new Permission</Button>
+                            {/* <Button className="bg-blue-950" onClick={() => setIsModalOpen(true)}>Add a new Permission</Button> */}
                         </div>
                     </div>
 
@@ -63,7 +63,7 @@ export default function RolesPermissions({ auth }: PageProps) {
                                 </Table.Body>
                             </Table>
                         </div>
-                        <div className="w-1/2"> {/* Tabela 2 com largura de 50% */}
+                        {/* <div className="w-1/2">
                             <Table hoverable>
                                 <Table.Head>
                                     <Table.HeadCell>Role Name</Table.HeadCell>
@@ -86,7 +86,7 @@ export default function RolesPermissions({ auth }: PageProps) {
                                     </Table.Row>
                                 </Table.Body>
                             </Table>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/*Start with modal page*/}
@@ -114,6 +114,12 @@ export default function RolesPermissions({ auth }: PageProps) {
                                         type="hidden"
                                         name="description"
                                     />
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <Checkbox id="accept" />
+                                    <Label htmlFor="accept" className="flex">
+                                        Permissions
+                                    </Label>
                                 </div>
                                 <div className="flex justify-end">
                                     <Button type="submit" className="bg-blue-950">
