@@ -9,7 +9,9 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [deletingRoleId, setDeletingRoleId] = useState<number | null>(null);
 
     const { data, setData, post, processing, reset, errors } = useForm({
         name: "",
@@ -43,6 +45,21 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                 console.error("Failed to add role.");
             },
         });
+    };
+
+    const handleDelete = () => {
+        if (deletingRoleId !== null) {
+            post(route('deleteRole', { id: deletingRoleId }), {
+                onSuccess: () => {
+                    setSuccessMessage('Role deleted successfully!');
+                    setIsDeleteModalOpen(false);
+                    setDeletingRoleId(null);
+                    setTimeout(() => {
+                        setSuccessMessage(null);
+                    }, 3000);
+                },
+            });
+        }
     };
 
     return (
