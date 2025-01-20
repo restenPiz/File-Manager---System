@@ -1,7 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Head, useForm } from "@inertiajs/react";
-import { Button, Checkbox, Label, Modal, Table } from "flowbite-react";
+import { Button, Checkbox, Dropdown, Label, Modal, Table } from "flowbite-react";
 import { useState } from "react";
 import axios from "axios";
 
@@ -98,9 +98,24 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                             <Table.Cell>{role.display_name}</Table.Cell>
                                             <Table.Cell>{role.description}</Table.Cell>
                                             <Table.Cell>
-                                                <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                                    View
-                                                </a>
+                                                <Dropdown inline>
+                                                    <Dropdown.Item>
+                                                        <a
+                                                            href="#"
+                                                            className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        >
+                                                            Delete
+                                                        </a>
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item>
+                                                        <a
+                                                            href="#"
+                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        >
+                                                            Edit
+                                                        </a>
+                                                    </Dropdown.Item>
+                                                </Dropdown>
                                             </Table.Cell>
                                         </Table.Row>
                                     ))}
