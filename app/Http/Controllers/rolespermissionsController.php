@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class rolespermissionsController extends Controller
@@ -12,7 +13,7 @@ class rolespermissionsController extends Controller
     public function index()
     {
         $permissions = Permission::all();
-        $roles = Role::all();
+        $roles = DB::table('roles')->get();
 
         return Inertia::render('RolesPermissions', [
             'permissions' => $permissions,
