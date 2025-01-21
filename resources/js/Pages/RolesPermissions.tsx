@@ -62,6 +62,7 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
             display_name: role.display_name,
             description: role.description,
         });
+        setData("permissions", role.permissions.map((perm) => perm.name));
         setIsEditModalOpen(true);
     };
 
