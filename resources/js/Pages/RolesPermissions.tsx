@@ -236,7 +236,10 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                             onSubmit={(e) => {
                                 e.preventDefault();
                                 post(route('updateRole', { id: selectedRole?.id }), {
-                                    data: formData,
+                                    data: {
+                                        ...formData,
+                                        permissions: data.permissions,
+                                    },
                                     onSuccess: () => {
                                         setSuccessMessage("Role updated successfully!");
                                         setIsEditModalOpen(false);
@@ -279,13 +282,29 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     />
                                 </div>
+
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">Permissions</label>
+                                    <div className="flex flex-wrap gap-2 mt-2">
+                                        {permissions.map((permission) => (
+                                            <label key={permission.id} className="inline-flex items-center space-x-2">
+                                                <input
+                                                    type="checkbox"
+                                                    name="permissions[]"
+                                                    value={permission.name}
+                                                    checked={data.permissions.includes(permission.name)}
+                                                    onChange={handleChange}
+                                                    className="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                                />
+                                                <span className="text-sm text-gray-700">{permission.display_name}</span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                </div>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button onClick={() => setIsEditModalOpen(false)} className="bg-gray-500 text-white">
-                                    Cancel
-                                </Button>
                                 <Button type="submit" className="bg-blue-600 text-white">
-                                    Update Changes
+                                    Save Changes
                                 </Button>
                             </Modal.Footer>
                         </form>
