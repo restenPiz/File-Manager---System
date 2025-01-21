@@ -67,7 +67,6 @@ class rolespermissionsController extends Controller
     }
     public function update($id, Request $request)
     {
-        // dd($request->all());
         $role = Role::findOrFail($id);
 
         $role->name = $request->name;
