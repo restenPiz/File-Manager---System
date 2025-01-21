@@ -55,17 +55,28 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
         });
     };
 
-    const handleEditClick = (role: RoleType) => {
-        setSelectedRole(role);
-        setFormData({
-            name: role.name,
-            display_name: role.display_name,
-            description: role.description,
-        });
-        setData("permissions", role.permissions.map((perm) => perm.name));
-        setIsEditModalOpen(true);
-    };
+    const handleEditClick = async (roleId: number) => {
+        try {
+            const response = await axios.get(route('roles.edit', { id: roleId }));
 
+            const role = response.data;
+
+            setSelectedRole(role);
+            setFormData({
+                name: role.name,
+                display_name: role.display_name,
+                description: role.description,
+            });
+
+            // Atualiza os checkboxes com as permissões da role
+            const permissions = role.permissions.map((perm) => perm.name);
+            setData("permissions", permissions);
+
+            setIsEditModalOpen(true);
+        } catch (error) {
+            console.error('Erro ao carregar os dados da role:', error);
+        }
+    };
     const handleDelete = () => {
         if (deletingRoleId !== null) {
             post(route('deleteRole', { id: deletingRoleId }), {
@@ -142,7 +153,7 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                                 <Dropdown inline>
                                                     <Dropdown.Item>
                                                         <a
-                                                            onClick={() => handleEditClick(role)}
+                                                            onClick={() => handleEditClick(role.id)}
                                                             href="#"
                                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >

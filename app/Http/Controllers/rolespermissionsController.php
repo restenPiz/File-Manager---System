@@ -47,4 +47,22 @@ class rolespermissionsController extends Controller
 
         return to_route('roles');
     }
+    public function edit($id)
+    {
+        $role = Role::with('permissions')->findOrFail($id);
+
+        return response()->json([
+            'id' => $role->id,
+            'name' => $role->name,
+            'display_name' => $role->display_name,
+            'description' => $role->description,
+            'permissions' => $role->permissions->map(function ($permission) {
+                return [
+                    'id' => $permission->id,
+                    'name' => $permission->name,
+                    'display_name' => $permission->display_name,
+                ];
+            }),
+        ]);
+    }
 }
