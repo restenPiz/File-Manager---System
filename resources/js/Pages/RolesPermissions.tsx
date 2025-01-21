@@ -65,23 +65,29 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
 
     const handleEditClick = async (roleId: number) => {
         try {
-            const response = await axios.get(route('editRole', { id: roleId }));
-
+            const response = await axios.get(route("editRole", { id: roleId }));
             const role = response.data;
 
             setSelectedRole(role);
-            setFormData({
-                name: role.name,
-                display_name: role.display_name,
-                description: role.description,
-            });
+
+            // Atualiza os dois estados: formData e data
+            const updatedFormData = {
+                name: role.name || "",
+                display_name: role.display_name || "",
+                description: role.description || "",
+            };
+
+            setFormData(updatedFormData);
 
             const permissions = role.permissions.map((perm) => perm.name);
-            setData("permissions", permissions);
+            setData({
+                ...updatedFormData, // Sincroniza com formData
+                permissions,
+            });
 
             setIsEditModalOpen(true);
         } catch (error) {
-            console.error('Erro ao carregar os dados da role:', error);
+            console.error("Erro ao carregar os dados da role:", error);
         }
     };
 
@@ -105,8 +111,6 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
         setIsDeleteModalOpen(true); // Abre o modal de confirmação
     };
 
-    console.log("FormData:", formData);
-    console.log("Data:", data);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -258,22 +262,24 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                             onSubmit={(e) => {
                                 e.preventDefault();
 
-                                setData((prevData) => ({
-                                    ...prevData,
-                                    name: formData.name,
-                                    display_name: formData.display_name,
-                                    description: formData.description,
-                                }));
+                                const payload = {
+                                    name: data.name,
+                                    display_name: data.display_name,
+                                    description: data.description,
+                                    permissions: data.permissions,
+                                };
 
-                                post(route('updateRole', { id: selectedRole?.id }), {
+                                console.log("Payload enviado:", payload);
+
+                                post(route("updateRole", { id: selectedRole?.id }), {
+                                    data: payload,
                                     onSuccess: () => {
-                                        setSuccessMessage('Role updated successfully!');
+                                        setSuccessMessage("Role updated successfully!");
                                         setIsEditModalOpen(false);
                                         reset();
-                                        setTimeout(() => setSuccessMessage(null), 3000);
                                     },
-                                    onError: () => {
-                                        console.error('Failed to update role.');
+                                    onError: (err) => {
+                                        console.error("Erro ao atualizar role:", err);
                                     },
                                 });
                             }}

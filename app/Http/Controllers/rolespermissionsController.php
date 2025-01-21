@@ -67,16 +67,23 @@ class rolespermissionsController extends Controller
     }
     public function update($id, Request $request)
     {
-        dd($request->all());
-        // $role = Role::findOrFail($id);
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'display_name' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'permissions' => 'array',
+        ]);
 
-        // $role->name = $request->name;
-        // $role->display_name = $request->display_name;
-        // $role->description = $request->description;
-        // $role->save();
+        $role = Role::findOrFail($id);
+        $role->update([
+            'name' => $validatedData['name'],
+            'display_name' => $validatedData['display_name'],
+            'description' => $validatedData['description'],
+        ]);
 
-        // $role->syncPermissions($request->permissions);
-
-        // return to_route('roles');
+        if (!empty($validatedData['permissions'])) {
+            $role->syncPermissions($validatedData['permissions']);
+        }
+        return to_route('roles');
     }
 }
