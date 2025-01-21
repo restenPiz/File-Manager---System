@@ -57,7 +57,7 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
 
     const handleEditClick = async (roleId: number) => {
         try {
-            const response = await axios.get(route('roles.edit', { id: roleId }));
+            const response = await axios.get(route('editRole', { id: roleId }));
 
             const role = response.data;
 
