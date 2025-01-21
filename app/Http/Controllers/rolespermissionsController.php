@@ -13,7 +13,7 @@ class rolespermissionsController extends Controller
     public function index()
     {
         $permissions = Permission::all();
-        $roles = DB::table('roles')->get();
+        $roles = Role::where('id' > 1)->get();
 
         return Inertia::render('RolesPermissions', [
             'permissions' => $permissions,
