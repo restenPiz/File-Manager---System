@@ -105,6 +105,8 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
         setIsDeleteModalOpen(true); // Abre o modal de confirmação
     };
 
+    console.log("FormData:", formData);
+    console.log("Data:", data);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -282,7 +284,7 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                     <input
                                         type="text"
                                         name="name"
-                                        value={formData.name}
+                                        value={formData.name || ""}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     />
@@ -292,7 +294,7 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                     <input
                                         type="text"
                                         name="display_name"
-                                        value={formData.display_name}
+                                        value={formData.display_name || ""}
                                         onChange={(e) => setFormData({ ...formData, display_name: e.target.value })}
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     />
@@ -301,7 +303,7 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                     <label className="block text-sm font-medium text-gray-700">Description</label>
                                     <textarea
                                         name="description"
-                                        value={formData.description}
+                                        value={formData.description || ""}
                                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     />
