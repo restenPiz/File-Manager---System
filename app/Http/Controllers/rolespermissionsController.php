@@ -65,4 +65,25 @@ class rolespermissionsController extends Controller
             }),
         ]);
     }
+    public function update($id, Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|unique:roles,name',
+            'permissions' => 'array',
+        ]);
+
+        $role = Role::findOrFail($id);
+
+        $role->name = $request->input('name');
+        $role->description = $request->input('description');
+        $role->display_name = $request->input('display_name');
+
+        $role->save();
+
+        if (!empty($validated['permissions'])) {
+            $role->syncPermissions($validated['permissions']);
+        }
+
+        return to_route('roles');
+    }
 }
