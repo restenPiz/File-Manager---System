@@ -4,7 +4,7 @@ import { Head } from "@inertiajs/react";
 import { Button, Modal, Select, Table } from "flowbite-react";
 import { useState } from "react";
 
-export default function User({ roles, auth }: PageProps) {
+export default function User({ users, roles, auth }: PageProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -41,19 +41,29 @@ export default function User({ roles, auth }: PageProps) {
                             </Table.HeadCell>
                         </Table.Head>
                         <Table.Body className="divide-y">
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    {'Apple MacBook Pro 17"'}
-                                </Table.Cell>
-                                <Table.Cell>Sliver</Table.Cell>
-                                <Table.Cell>Laptop</Table.Cell>
-                                <Table.Cell>$2999</Table.Cell>
-                                <Table.Cell>
-                                    <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                        View
-                                    </a>
-                                </Table.Cell>
-                            </Table.Row>
+                            {
+                                users.length === 0 ? (
+                                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                        <Table.Cell colSpan={5} className="text-center text-gray-500">
+                                            No users available
+                                        </Table.Cell>
+                                    </Table.Row>
+                                ) : (
+                                    users.map((user, index) => (
+                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                {'Apple MacBook Pro 17"'}
+                                            </Table.Cell>
+                                            <Table.Cell>Sliver</Table.Cell>
+                                            <Table.Cell>Laptop</Table.Cell>
+                                            <Table.Cell>$2999</Table.Cell>
+                                            <Table.Cell>
+                                                <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                                                    Vie
+                                                </a>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    )))}
                         </Table.Body>
                     </Table>
 

@@ -159,7 +159,7 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                     {roles.length === 0 ? (
                                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                             <Table.Cell colSpan={5} className="text-center text-gray-500">
-                                                No files available
+                                                No roles available
                                             </Table.Cell>
                                         </Table.Row>
                                     ) : (

@@ -16,7 +16,7 @@ class userController extends Controller
 
         return Inertia::render('User', [
             'roles' => $roles,
-            'users' => $roles,
+            'users' => $users,
         ]);
     }
     public function store()
