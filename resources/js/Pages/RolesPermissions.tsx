@@ -277,6 +277,9 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                         setSuccessMessage("Role updated successfully!");
                                         setIsEditModalOpen(false);
                                         reset();
+                                        setTimeout(() => {
+                                            setSuccessMessage(null);
+                                        }, 3000);
                                     },
                                     onError: (err) => {
                                         console.error("Erro ao atualizar role:", err);
