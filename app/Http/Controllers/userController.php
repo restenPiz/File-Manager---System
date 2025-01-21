@@ -19,9 +19,25 @@ class userController extends Controller
             'users' => $users,
         ]);
     }
-    public function store()
+    public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'Number_bi' => 'required|string|max:255',
+            'role' => 'required|exists:roles,id',
+        ]);
 
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'Number_bi' => $validated['bi'],
+            'password' => bcrypt('defaultpassword'), // Ou peça a senha no formulário
+        ]);
+
+        $user->assignRole($validated['role']);
+
+        return to_route('users');
     }
     public function update()
     {
