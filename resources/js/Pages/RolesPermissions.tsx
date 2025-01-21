@@ -156,7 +156,14 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                     </Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body className="divide-y">
-                                    {roles.map((role, index) => (
+                                    {roles.length === 0 ? (
+                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                            <Table.Cell colSpan={5} className="text-center text-gray-500">
+                                                No files available
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    ) : (
+                                        roles.map((role, index) => (
                                         <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                                 {role.name}
@@ -186,7 +193,8 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                                 </Dropdown>
                                             </Table.Cell>
                                         </Table.Row>
-                                    ))}
+                                        ))
+                                    )}
                                 </Table.Body>
                             </Table>
                         </div>
