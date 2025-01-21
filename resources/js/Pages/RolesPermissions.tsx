@@ -284,8 +284,9 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                     <input
                                         type="text"
                                         name="name"
-                                        value={formData.name || ""}
+                                        value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                        title="Enter the name of the role"
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     />
                                 </div>
@@ -294,8 +295,9 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                     <input
                                         type="text"
                                         name="display_name"
-                                        value={formData.display_name || ""}
+                                        value={formData.display_name}
                                         onChange={(e) => setFormData({ ...formData, display_name: e.target.value })}
+                                        placeholder="Enter a display name"
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     />
                                 </div>

@@ -67,15 +67,16 @@ class rolespermissionsController extends Controller
     }
     public function update($id, Request $request)
     {
-        $role = Role::findOrFail($id);
+        dd($request->all());
+        // $role = Role::findOrFail($id);
 
-        $role->name = $request->name;
-        $role->display_name = $request->display_name;
-        $role->description = $request->description;
-        $role->save();
+        // $role->name = $request->name;
+        // $role->display_name = $request->display_name;
+        // $role->description = $request->description;
+        // $role->save();
 
-        $role->syncPermissions($request->permissions);
+        // $role->syncPermissions($request->permissions);
 
-        return to_route('roles');
+        // return to_route('roles');
     }
 }
