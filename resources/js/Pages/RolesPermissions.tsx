@@ -84,6 +84,7 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
             console.error('Erro ao carregar os dados da role:', error);
         }
     };
+
     const handleDelete = () => {
         if (deletingRoleId !== null) {
             post(route('deleteRole', { id: deletingRoleId }), {
@@ -254,19 +255,23 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                         <form
                             onSubmit={(e) => {
                                 e.preventDefault();
+
+                                setData((prevData) => ({
+                                    ...prevData,
+                                    name: formData.name,
+                                    display_name: formData.display_name,
+                                    description: formData.description,
+                                }));
+
                                 post(route('updateRole', { id: selectedRole?.id }), {
-                                    data: {
-                                        ...formData,
-                                        permissions: data.permissions,
-                                    },
                                     onSuccess: () => {
-                                        setSuccessMessage("Role updated successfully!");
+                                        setSuccessMessage('Role updated successfully!');
                                         setIsEditModalOpen(false);
-                                        setSelectedRole(null);
+                                        reset();
                                         setTimeout(() => setSuccessMessage(null), 3000);
                                     },
                                     onError: () => {
-                                        console.error("Failed to update role.");
+                                        console.error('Failed to update role.');
                                     },
                                 });
                             }}
