@@ -27,8 +27,12 @@ class userController extends Controller
     {
 
     }
-    public function delete()
+    public function delete($id)
     {
+        $user = User::findOrFail($id);
 
+        $user->delete();
+
+        return to_route('users');
     }
 }
