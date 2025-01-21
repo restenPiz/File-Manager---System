@@ -4,6 +4,7 @@ use App\Http\Controllers\fileController;
 use App\Http\Controllers\folderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\rolespermissionsController;
+use App\Http\Controllers\userController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,7 +30,6 @@ Route::middleware('auth')->group(function () {
 });
 
 //*Start with the main routes
-Route::inertia('/users', 'User')->name('user');
 Route::inertia('/settings', 'Settings')->name('settings');
 
 //*Start with the Requests methods
@@ -47,5 +47,8 @@ Route::post('/storeRoles', [rolespermissionsController::class, 'store'])->name('
 Route::post('/deleteRole/{id}', [rolespermissionsController::class, 'delete'])->name('deleteRole');
 Route::get('/editRole/{id}', [rolespermissionsController::class, 'edit'])->name('editRole');
 Route::post('/updateRole/{id}', [rolespermissionsController::class, 'update'])->name('updateRole');
+
+Route::get('/users', [userController::class, 'index'])->name('user');
+
 
 require __DIR__ . '/auth.php';

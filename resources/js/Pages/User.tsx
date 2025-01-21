@@ -5,7 +5,7 @@ import TableUser from "@/Components/TableUser";
 import { Button, Modal, Select } from "flowbite-react";
 import { useState } from "react";
 
-export default function User({ auth }: PageProps) {
+export default function User({ roles, auth }: PageProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -76,10 +76,9 @@ export default function User({ auth }: PageProps) {
                                     </div>
                                     <Select id="countries" required>
                                         <option>==Choose one option==</option>
-                                        <option>Super admin</option>
-                                        <option>Adminstrator</option>
-                                        <option>Finance</option>
-                                        <option>Accountant</option>
+                                        {roles.map((role, index) => (
+                                            <option>{role.name}</option>
+                                        ))}
                                     </Select>
                                 </div>
 
