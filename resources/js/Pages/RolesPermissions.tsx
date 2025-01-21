@@ -26,6 +26,14 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
         description: "",
     });
 
+    const openCreateModal = () => {
+        setData({
+            name: "",
+            permissions: [], // Limpa as permissões
+        });
+        setIsCreateModalOpen(true);
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, checked } = e.target;
 
@@ -68,7 +76,6 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                 description: role.description,
             });
 
-            // Atualiza os checkboxes com as permissões da role
             const permissions = role.permissions.map((perm) => perm.name);
             setData("permissions", permissions);
 
@@ -111,7 +118,7 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                             Manage Roles
                         </h2>
                         <div className="flex space-x-4"> {/* Botões alinhados horizontalmente */}
-                            <Button className="bg-blue-950" onClick={() => setIsCreateModalOpen(true)}>Add a new Role</Button>
+                            <Button className="bg-blue-950" onClick={openCreateModal}>Add a new Role</Button>
                             {/* <Button className="bg-blue-950" onClick={() => setIsModalOpen(true)}>Add a new Permission</Button> */}
                         </div>
                     </div>
@@ -123,7 +130,7 @@ export default function RolesPermissions({ roles, permissions, auth }: PageProps
                                     className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
                                     role="alert"
                                 >
-                                    <span className="font-medium">Sucesso!</span> {successMessage}
+                                    <span className="font-medium">Success!</span> {successMessage}
                                 </div>
                             </div>
                         )}
