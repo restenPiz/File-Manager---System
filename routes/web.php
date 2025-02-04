@@ -49,6 +49,7 @@ Route::get('/editRole/{id}', [rolespermissionsController::class, 'edit'])->name(
 Route::post('/updateRole/{id}', [rolespermissionsController::class, 'update'])->name('updateRole');
 
 Route::get('/users', [userController::class, 'index'])->name('user');
-Route::get('/storeUser', [userController::class, 'store'])->name('storeUser');
+Route::post('/storeUser', [userController::class, 'store'])->name('storeUser');
+Route::post('/deleteUser/{id}', [userController::class, 'delete'])->name('deleteUser');
 
 require __DIR__ . '/auth.php';
