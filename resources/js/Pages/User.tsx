@@ -15,7 +15,7 @@ export default function User({ users, roles, auth }: PageProps) {
     const { post, data, reset, setData } = useForm({
         name: "",
         email: "",
-        bi: "",
+        Number_bi: "",
         role: "",
     });
 
@@ -116,6 +116,9 @@ export default function User({ users, roles, auth }: PageProps) {
                                         User Name
                                     </label>
                                     <input
+                                        name="name"
+                                        value={data.name}
+                                        onChange={(e) => setData("name", e.target.value)}
                                         type="text"
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="Enter user name"
@@ -126,6 +129,9 @@ export default function User({ users, roles, auth }: PageProps) {
                                         Email
                                     </label>
                                     <input
+                                        name="email"
+                                        value={data.email}
+                                        onChange={(e) => setData("email", e.target.value)}
                                         type="text"
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="Enter email"
@@ -136,6 +142,9 @@ export default function User({ users, roles, auth }: PageProps) {
                                         Number bi
                                     </label>
                                     <input
+                                        name="Number_bi"
+                                        value={data.Number_bi}
+                                        onChange={(e) => setData("Number_bi", e.target.value)}
                                         type="text"
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="Enter with number bi"
@@ -147,10 +156,16 @@ export default function User({ users, roles, auth }: PageProps) {
                                             Roles
                                         </label>
                                     </div>
-                                    <Select id="countries" required>
+                                    <Select id="countries"
+                                        name="role"
+                                        value={data.role}
+                                        onChange={(e) => setData("role", e.target.value)}
+                                        required>
                                         <option>==Choose one option==</option>
-                                        {roles.map((role, index) => (
-                                            <option>{role.name}</option>
+                                        {roles.map((role) => (
+                                            <option key={role.id} value={role.name}>
+                                                {role.name}
+                                            </option>
                                         ))}
                                     </Select>
                                 </div>
