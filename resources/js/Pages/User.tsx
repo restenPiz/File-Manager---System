@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
-import { Head } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 import { Button, Dropdown, Modal, Select, Table } from "flowbite-react";
 import { useState } from "react";
 
@@ -11,6 +11,13 @@ export default function User({ users, roles, auth }: PageProps) {
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+    const { post, data, reset, setData } = useForm({
+        name: "",
+        email: "",
+        bi: "",
+        role: "",
+    });
 
     return (
         <AuthenticatedLayout
@@ -88,30 +95,7 @@ export default function User({ users, roles, auth }: PageProps) {
                     <Modal show={isModalOpen} onClose={toggleModal}>
                         <Modal.Header>Add a New User</Modal.Header>
                         <Modal.Body>
-                            <form onSubmit={(e) => {
-                                e.preventDefault();
-
-                                const payload = {
-                                    name: formData.name,
-                                    email: formData.email,
-                                    bi: formData.bi,
-                                    role: formData.role,
-                                };
-
-                                console.log("Payload enviado:", payload);
-
-                                post(route("storeUser"), {
-                                    data: payload,
-                                    onSuccess: () => {
-                                        setSuccessMessage("User created successfully!");
-                                        resetForm();
-                                        toggleModal();
-                                    },
-                                    onError: (err) => {
-                                        console.error("Erro ao criar usuário:", err);
-                                    },
-                                });
-                            }}>
+                            <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
                                     <label className="block text-sm font-medium text-gray-700">
                                         User Name
