@@ -23,7 +23,12 @@ class dashboardController extends Controller
     {
         if (auth::user()->hasRole('super')) {
             //*Start the method to return the inertia component
-            return Inertia::render('Dashboard');
+            return Inertia::render('Dashboard', [
+                'auth' => [
+                    'user' => Auth::user()->load('roles'), // Carrega as roles do usuário
+                ]
+            ]);
+
 
         } elseif (Auth::user()->hasRole('manager')) {
             return redirect()->route('login');
