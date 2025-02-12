@@ -10,6 +10,8 @@ export default function User({ users, roles, auth }: PageProps) {
 
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -86,7 +88,30 @@ export default function User({ users, roles, auth }: PageProps) {
                     <Modal show={isModalOpen} onClose={toggleModal}>
                         <Modal.Header>Add a New User</Modal.Header>
                         <Modal.Body>
-                            <form>
+                            <form onSubmit={(e) => {
+                                e.preventDefault();
+
+                                const payload = {
+                                    name: formData.name,
+                                    email: formData.email,
+                                    bi: formData.bi,
+                                    role: formData.role,
+                                };
+
+                                console.log("Payload enviado:", payload);
+
+                                post(route("storeUser"), {
+                                    data: payload,
+                                    onSuccess: () => {
+                                        setSuccessMessage("User created successfully!");
+                                        resetForm();
+                                        toggleModal();
+                                    },
+                                    onError: (err) => {
+                                        console.error("Erro ao criar usuário:", err);
+                                    },
+                                });
+                            }}>
                                 <div className="mb-4">
                                     <label className="block text-sm font-medium text-gray-700">
                                         User Name
@@ -132,7 +157,7 @@ export default function User({ users, roles, auth }: PageProps) {
                                 </div>
 
                                 <div className="flex justify-end">
-                                    <Button onClick={toggleModal} className="bg-blue-950">
+                                    <Button type="submit" name="submit" className="bg-blue-950">
                                         Create
                                     </Button>
                                 </div>
