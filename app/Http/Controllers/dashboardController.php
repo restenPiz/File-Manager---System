@@ -11,7 +11,9 @@ class dashboardController extends Controller
     public function index()
     {
         if (auth::user()->hasRole('super')) {
+            //*Start the method to return the inertia component
             return Inertia::render('Dashboard');
+            
         } elseif (Auth::user()->hasRole('manager')) {
 
         } else {
