@@ -19,6 +19,21 @@ export default function User({ users, roles, auth }: PageProps) {
         role: "",
     });
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        post(route('storeUser'), {
+            onSuccess: () => {
+                setSuccessMessage('User added successfully!');
+                setIsModalOpen(false);
+                reset(); // Limpa o formulário
+                setTimeout(() => {
+                    setSuccessMessage(null);
+                }, 3000);
+            },
+        });
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
