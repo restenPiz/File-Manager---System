@@ -37,7 +37,9 @@ export default function Dashboard({ auth }: PageProps) {
 
                         {/* DataTable */}
                         <div className="flex-1"> {/* A DataTable ocupa o restante espaço */}
-                            <TableUser></TableUser>
+                            {/*Inicio da tabela do usuario*/}
+
+                            {/*Fim da tabela do usuario*/}
                         </div>
                     </div>
                 </div>
